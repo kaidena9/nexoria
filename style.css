@@ -22,9 +22,11 @@
   --accent-hi:      #6B92D6;
   --on-accent:      #FFFFFF;
 
-  /* Warm + cool secondary splashes — used sparingly for highlights */
-  --accent-warm:    #D9A659;   /* burnished gold, for outcome stats + emphasis */
-  --accent-mint:    #5BBA9F;   /* soft teal-green, for "growth/positive" signals */
+  /* Secondary accent palette — used as restrained per-section splashes */
+  --accent-warm:    #D9A659;   /* burnished gold — value / outcomes / work */
+  --accent-mint:    #5BBA9F;   /* soft teal-green — growth / contact / automation */
+  --accent-sky:     #5FA8E0;   /* bright sky-blue — clarity / services */
+  --accent-plum:    #9C7FCC;   /* muted lavender — structure / process */
 
   /* Type */
   --font-display: "Space Grotesk", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -920,3 +922,147 @@ section:not(.hero)::before,
   font-weight: 500;
 }
 .section--dark .section-lede em { color: var(--accent-warm); }
+
+/* =========================================================
+   Color splashes — visible per-section accents
+   Each section carries one of: sky (services), gold (work),
+   plum (process), mint (contact). Decorative bars/dots only
+   so text contrast stays high on both bg modes.
+   ========================================================= */
+
+/* 1. Section kicker — colored leading bar, varies by section */
+.section-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.services .section-kicker::before { background: var(--accent-sky); }
+.work     .section-kicker::before { background: var(--accent-warm); }
+.process  .section-kicker::before { background: var(--accent-plum); }
+.contact  .section-kicker::before { background: var(--accent-mint); }
+
+/* 2. Section divider gradients — accent per section transition */
+.services::before {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(95, 168, 224, 0.30) 22%,
+    rgba(95, 168, 224, 0.80) 50%,
+    rgba(95, 168, 224, 0.30) 78%,
+    transparent 100%
+  );
+}
+.work::before {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(217, 166, 89, 0.30) 22%,
+    rgba(217, 166, 89, 0.78) 50%,
+    rgba(217, 166, 89, 0.30) 78%,
+    transparent 100%
+  );
+}
+.process::before {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(156, 127, 204, 0.30) 22%,
+    rgba(156, 127, 204, 0.80) 50%,
+    rgba(156, 127, 204, 0.30) 78%,
+    transparent 100%
+  );
+}
+.contact::before {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(91, 186, 159, 0.30) 22%,
+    rgba(91, 186, 159, 0.80) 50%,
+    rgba(91, 186, 159, 0.30) 78%,
+    transparent 100%
+  );
+}
+
+/* 3. Service discipline markers — colored bar before each service number */
+.service-num::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--accent);
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.service:nth-child(1) .service-num::before { background: var(--accent-sky); }
+.service:nth-child(2) .service-num::before { background: var(--accent-warm); }
+.service:nth-child(3) .service-num::before { background: var(--accent-mint); }
+
+/* 4. Process step number indicators — plum dots before each number */
+.process-num {
+  position: relative;
+  padding-left: 22px;
+}
+.process-num::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 12px;
+  height: 1.5px;
+  background: var(--accent-plum);
+}
+
+/* 5. Trust-list bullets — rotating colors */
+.trust-list li:nth-child(1)::before { background: var(--accent-sky); }
+.trust-list li:nth-child(2)::before { background: var(--accent-warm); }
+.trust-list li:nth-child(3)::before { background: var(--accent-mint); }
+.trust-list li:nth-child(4)::before { background: var(--accent-plum); }
+
+/* 6. Hero meta dt labels — three different accent colors */
+.hero-meta > div:nth-child(1) dt { color: var(--accent-mint); }
+.hero-meta > div:nth-child(2) dt { color: var(--accent-warm); }
+.hero-meta > div:nth-child(3) dt { color: var(--accent-sky); }
+
+/* 7. Form input focus state — sky-blue */
+.field input:focus,
+.field textarea:focus {
+  border-bottom-color: var(--accent-sky);
+}
+
+/* 8. Hero scroll indicator line — sky tint */
+.hero-scroll-line {
+  background: linear-gradient(to bottom, rgba(95, 168, 224, 0.80), transparent);
+}
+
+/* 9. Footer tag — small gold accent bar */
+.footer-tag {
+  position: relative;
+  padding-left: 18px;
+}
+.footer-tag::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 1.5px;
+  background: var(--accent-warm);
+}
+
+/* 10. H1 accent — small sky stripe above the hero headline */
+.hero-heading {
+  position: relative;
+}
+.hero-heading::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(to right, var(--accent-sky), var(--accent-plum));
+  margin: 0 auto 22px;
+  opacity: 0.85;
+}
