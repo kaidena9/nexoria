@@ -1960,3 +1960,99 @@ section:not(.hero)::before,
   height: 1.5px;
   background: var(--accent-warm);
 }
+
+/* =========================================================
+   Hero cinematic image layer
+   - Soft, art-directed photo behind the hero, masked toward the
+     center so the left side stays clean for the headline.
+   - Heavy filter + low opacity so it integrates with the
+     existing grid / glow / atmosphere system instead of
+     overpowering it.
+   - Graceful fallback: if assets/hero-cinematic.jpg is missing,
+     the layer shows only a soft architectural tint.
+   ========================================================= */
+.hero-image {
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/hero-cinematic.jpg");
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  /* Subtle blue tint shows through when the image is missing */
+  background-color: rgba(20, 32, 60, 0.20);
+  opacity: 0.32;
+  filter: brightness(0.85) saturate(0.85) contrast(1.05);
+  /* Mobile: image is a soft full-width atmosphere, fading up so
+     the text area at the top stays clean */
+  mask-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.55) 50%,
+    rgba(0, 0, 0, 0.18) 82%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.55) 50%,
+    rgba(0, 0, 0, 0.18) 82%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Desktop split — text anchors LEFT, image carries the RIGHT */
+@media (min-width: 960px) {
+  .hero-image {
+    inset: 0 0 0 auto;
+    width: 62%;
+    opacity: 0.55;
+    mask-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.92) 22%,
+      rgba(0, 0, 0, 0.55) 55%,
+      rgba(0, 0, 0, 0.18) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.92) 22%,
+      rgba(0, 0, 0, 0.55) 55%,
+      rgba(0, 0, 0, 0.18) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  /* Anchor the hero content to the left so the image has room to breathe */
+  .hero .hero-inner {
+    align-items: flex-start;
+    text-align: left;
+    margin: 0;
+    max-width: 660px;
+  }
+  .hero .eyebrow { justify-content: flex-start; }
+  .hero-heading {
+    margin: 14px 0 26px;
+    max-width: 100%;
+  }
+  .hero-heading::before {
+    margin: 0 0 22px;
+  }
+  .hero-tagline,
+  .hero-sub {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+  .hero-actions {
+    justify-content: flex-start;
+  }
+  .hero-meta {
+    margin: 0;
+    max-width: 100%;
+    text-align: left;
+  }
+}
