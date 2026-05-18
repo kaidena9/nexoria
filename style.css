@@ -487,18 +487,22 @@ section:not(.hero)::before,
 
 .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 
-/* Architectural grid — fine luminous lines */
+/* Hero focal image — dashboard composition sits where the grid used to,
+   masked at the edges so the visual stays confined to the center and
+   fades into the surrounding atmosphere */
 .grid-layer {
   position: absolute;
-  inset: -10% -10%;
-  background-image:
-    linear-gradient(to right,  rgba(130, 176, 238, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(130, 176, 238, 0.08) 1px, transparent 1px);
-  background-size: 68px 68px;
-  mask-image: radial-gradient(ellipse 80% 65% at 50% 46%, #000 26%, transparent 78%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 46%, #000 26%, transparent 78%);
-  will-change: transform;
-  transform: translate3d(0,0,0);
+  inset: -4% -4%;
+  background-image: url("assets/hero-dashboard.jpg");
+  background-size: 92% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  mask-image: radial-gradient(ellipse 72% 66% at 50% 50%, #000 38%, transparent 88%);
+  -webkit-mask-image: radial-gradient(ellipse 72% 66% at 50% 50%, #000 38%, transparent 88%);
+  opacity: 0.55;
+  filter: brightness(0.95) saturate(1.05) contrast(1.05);
+  will-change: transform, background-size, background-position;
+  transform: translate3d(0, 0, 0);
 }
 
 /* Cool blue zone — upper right */
@@ -1442,12 +1446,14 @@ section:not(.hero)::before,
    - three sparse shimmer points, all on different cycles, never synced */
 
 .grid-layer {
-  /* slow ambient drift — one cell over two minutes, almost imperceptible */
-  animation: gridDrift 120s linear infinite;
+  /* slow cinematic breath — the focal image gently scales + drifts.
+     Uses background-size + background-position so it never fights with
+     the JS scroll parallax (which sets transform on the same element). */
+  animation: dashboardBreath 28s ease-in-out infinite;
 }
-@keyframes gridDrift {
-  0%   { background-position: 0 0; }
-  100% { background-position: 68px 68px; }
+@keyframes dashboardBreath {
+  0%, 100% { background-size: 92% auto; background-position: 50% 50%; }
+  50%      { background-size: 98% auto; background-position: 51% 49%; }
 }
 
 .hero-atmosphere {
@@ -1961,105 +1967,5 @@ section:not(.hero)::before,
   background: var(--accent-warm);
 }
 
-/* =========================================================
-   Hero cinematic image layer
-   - Soft, art-directed photo behind the hero, masked toward the
-     center so the left side stays clean for the headline.
-   - Heavy filter + low opacity so it integrates with the
-     existing grid / glow / atmosphere system instead of
-     overpowering it.
-   - Graceful fallback: if assets/hero-cinematic.jpg is missing,
-     the layer shows only a soft architectural tint.
-   ========================================================= */
-.hero-image {
-  position: absolute;
-  inset: 0;
-  /* Stacked backgrounds: the photo is on top; if it 404s, the two
-     gradient layers below still render — so the design shows itself
-     even before assets/hero-cinematic.jpg is added. */
-  background-image:
-    url("assets/hero-cinematic.jpg"),
-    radial-gradient(ellipse 75% 95% at 88% 50%, rgba(80, 130, 200, 0.55), transparent 72%),
-    linear-gradient(125deg,
-      rgba(15, 22, 50, 0.40) 0%,
-      rgba(48, 78, 138, 0.85) 45%,
-      rgba(28, 50, 100, 0.75) 70%,
-      rgba(10, 14, 35, 0.50) 100%);
-  background-size: cover, 100% 100%, 100% 100%;
-  background-position: center right, center, center;
-  background-repeat: no-repeat;
-  opacity: 0.55;
-  filter: brightness(0.95) saturate(0.95) contrast(1.05);
-  /* Mobile: full-width atmosphere, fading up so the headline area
-     at the top of the hero stays clean. */
-  mask-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.65) 55%,
-    rgba(0, 0, 0, 0.20) 85%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  -webkit-mask-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.65) 55%,
-    rgba(0, 0, 0, 0.20) 85%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  z-index: 0;
-}
-
-/* Desktop split — text anchors LEFT, image carries the RIGHT */
-@media (min-width: 960px) {
-  .hero-image {
-    inset: 0 0 0 auto;
-    width: 62%;
-    opacity: 0.75;
-    mask-image: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.95) 25%,
-      rgba(0, 0, 0, 0.60) 55%,
-      rgba(0, 0, 0, 0.20) 80%,
-      rgba(0, 0, 0, 0) 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.95) 25%,
-      rgba(0, 0, 0, 0.60) 55%,
-      rgba(0, 0, 0, 0.20) 80%,
-      rgba(0, 0, 0, 0) 100%
-    );
-  }
-
-  /* Anchor the hero content to the left so the image has room to breathe */
-  .hero .hero-inner {
-    align-items: flex-start;
-    text-align: left;
-    margin: 0;
-    max-width: 660px;
-  }
-  .hero .eyebrow { justify-content: flex-start; }
-  .hero-heading {
-    margin: 14px 0 26px;
-    max-width: 100%;
-  }
-  .hero-heading::before {
-    margin: 0 0 22px;
-  }
-  .hero-tagline,
-  .hero-sub {
-    margin-left: 0;
-    margin-right: 0;
-    max-width: 100%;
-  }
-  .hero-actions {
-    justify-content: flex-start;
-  }
-  .hero-meta {
-    margin: 0;
-    max-width: 100%;
-    text-align: left;
-  }
-}
+/* (Previous right-side hero-image gradient layer + desktop split removed —
+   the centered dashboard image in .grid-layer is now the focal element.) */
