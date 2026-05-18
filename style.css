@@ -1,33 +1,34 @@
 /* =========================================================
    Nexoria — Digital Growth Systems
-   Light-blue theme · navy CTAs
+   Midnight / city-lights theme
    ========================================================= */
 
 :root {
-  /* Palette — mid-tone steel blues, navy reserved for CTAs */
-  --bg-dark:        #7E97B4;   /* darker steel blue (formerly "dark" sections) */
-  --bg-dark-2:      #6B86A6;   /* slightly deeper for accents */
-  --surface-dark:   #FFFFFF;   /* card / form panel */
-  --bg-light:       #9DB5CF;   /* alternating slightly lighter steel blue */
-  --surface-light:  #FFFFFF;
-  --footer-bg:      #4E6986;   /* deeper grounding for footer */
+  /* Base — deep midnight; subtle shift between sections */
+  --bg-dark:        #0A0E1F;   /* deep midnight (default "dark" sections + page bg) */
+  --bg-dark-2:      #0E1326;   /* slight elevation */
+  --surface-dark:   #141A2F;   /* card / form surface */
+  --bg-light:       #0D1224;   /* alternating section — slightly different tone, still dark */
+  --surface-light:  #161C32;   /* elevated card on the alternating bg */
+  --footer-bg:      #06081A;   /* deepest grounding for footer */
 
-  --ink:            #0A1428;   /* dark navy text + CTA fill */
-  --ink-soft:       #1A2438;
-  --muted:          #1F2E48;   /* deeper muted for legibility on the mid bg */
-  --muted-on-dark:  #1F2E48;
-  --line:           rgba(10, 20, 40, 0.14);
-  --line-on-dark:   rgba(10, 20, 40, 0.20);
+  /* Text — warm off-whites on the midnight bg */
+  --ink:            #ECEFF6;
+  --ink-soft:       #C0CADD;
+  --muted:          #8E9AB6;
+  --muted-on-dark:  #8E9AB6;
+  --line:           rgba(255, 255, 255, 0.10);
+  --line-on-dark:   rgba(255, 255, 255, 0.10);
 
-  --accent:         #2D5BA8;
-  --accent-hi:      #6B92D6;
+  /* Accents — refined "city lights" palette */
+  --accent:         #4767BE;          /* slate-blue primary */
+  --accent-hi:      #6B92D6;          /* lighter slate */
   --on-accent:      #FFFFFF;
 
-  /* Secondary accent palette — used as restrained per-section splashes */
-  --accent-warm:    #D9A659;   /* burnished gold — value / outcomes / work */
-  --accent-mint:    #5BBA9F;   /* soft teal-green — growth / contact / automation */
-  --accent-sky:     #5FA8E0;   /* bright sky-blue — clarity / services */
-  --accent-plum:    #9C7FCC;   /* muted lavender — structure / process */
+  --accent-warm:    #E0B16C;          /* warm gold — window lights */
+  --accent-mint:    #5BBA9F;
+  --accent-sky:     #6FB4E8;          /* electric blue — windows */
+  --accent-plum:    #8B6BC7;          /* refined lavender — atmosphere */
 
   /* Type */
   --font-display: "Space Grotesk", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -55,7 +56,7 @@ body {
   font-size: 17px;
   line-height: 1.6;
   color: var(--ink);
-  background: var(--bg-light);
+  background: var(--bg-dark);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -66,17 +67,17 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 
-::selection { background: var(--accent); color: var(--on-accent); }
+::selection { background: var(--accent-warm); color: var(--bg-dark); }
 
 .skip-link {
   position: absolute; left: -9999px; top: 0;
-  background: var(--ink); color: #fff; padding: 10px 14px; z-index: 100;
+  background: var(--ink); color: var(--bg-dark); padding: 10px 14px; z-index: 100;
   border-radius: 0 0 6px 0;
 }
 .skip-link:focus { left: 0; }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-sky);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -94,7 +95,7 @@ section { position: relative; }
 .section--light { background: var(--bg-light); color: var(--ink); padding: var(--section-y) 0; }
 .section--dark  { background: var(--bg-dark);  color: var(--ink); padding: var(--section-y) 0; }
 
-/* Subtle gradient dividers at the seam of each section change */
+/* Section dividers — illuminated hairline */
 section:not(.hero)::before,
 .site-footer::before {
   content: "";
@@ -106,9 +107,9 @@ section:not(.hero)::before,
   background: linear-gradient(
     to right,
     transparent 0%,
-    rgba(45, 91, 168, 0.30) 22%,
-    rgba(45, 91, 168, 0.75) 50%,
-    rgba(45, 91, 168, 0.30) 78%,
+    rgba(255, 255, 255, 0.18) 22%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0.18) 78%,
     transparent 100%
   );
   pointer-events: none;
@@ -134,7 +135,7 @@ section:not(.hero)::before,
 .eyebrow-dot {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--accent-warm);
-  box-shadow: 0 0 0 4px rgba(217, 166, 89, 0.22);
+  box-shadow: 0 0 10px rgba(224, 177, 108, 0.65);
 }
 
 .section-title {
@@ -148,19 +149,19 @@ section:not(.hero)::before,
 }
 
 .section-lede {
-  max-width: 56ch;
+  max-width: 60ch;
   font-size: clamp(16px, 1.2vw, 18px);
-  color: var(--muted);
+  color: var(--ink-soft);
   margin: 0;
 }
-.section--dark .section-lede { color: var(--muted); }
+.section--dark .section-lede { color: var(--ink-soft); }
 
 .section-head { max-width: 880px; margin-bottom: clamp(56px, 7vw, 96px); }
 
-/* --------- Buttons (CTAs always navy) --------- */
+/* --------- Buttons --------- */
 .btn {
-  --bg: var(--ink);
-  --fg: #fff;
+  --bg: #F0F2F8;
+  --fg: #0A0E1F;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -174,24 +175,28 @@ section:not(.hero)::before,
   font-weight: 500;
   font-size: 15px;
   letter-spacing: 0.005em;
-  transition: transform .35s var(--ease), background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+  transition: transform .35s var(--ease), background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
   white-space: nowrap;
 }
-.btn:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn:hover {
+  background: var(--accent-warm);
+  border-color: var(--accent-warm);
+  color: var(--bg-dark);
+  box-shadow: 0 0 28px rgba(224, 177, 108, 0.30);
+}
 .btn:active { transform: translateY(1px); }
 
 .btn-ghost {
   --bg: transparent;
   --fg: var(--ink);
-  border-color: var(--ink);
-  opacity: 0.92;
+  border-color: rgba(255, 255, 255, 0.35);
+  opacity: 0.95;
 }
-.btn-ghost:hover,
-.section--dark .btn-ghost:hover,
-.hero .btn-ghost:hover {
+.btn-ghost:hover {
   background: var(--ink);
   border-color: var(--ink);
-  color: #fff;
+  color: var(--bg-dark);
+  box-shadow: 0 0 24px rgba(236, 239, 246, 0.18);
   opacity: 1;
 }
 
@@ -207,9 +212,9 @@ section:not(.hero)::before,
   border-bottom: 1px solid transparent;
 }
 .site-header.is-scrolled {
-  background: rgba(126, 151, 180, 0.85);    /* translucent steel blue */
-  -webkit-backdrop-filter: saturate(160%) blur(14px);
-  backdrop-filter: saturate(160%) blur(14px);
+  background: rgba(10, 14, 31, 0.72);
+  -webkit-backdrop-filter: saturate(140%) blur(16px);
+  backdrop-filter: saturate(140%) blur(16px);
   border-bottom-color: var(--line-on-dark);
   padding: 10px 0;
 }
@@ -217,13 +222,45 @@ section:not(.hero)::before,
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: flex-start;   /* nav + CTA now top-LEFT */
-  gap: 24px;
+  justify-content: flex-start;
+  gap: 28px;
   min-height: 40px;
 }
 
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: -0.018em;
+  line-height: 1;
+}
+
+/* Text wordmark — refined, subtly glowing edge so it reads as branded */
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(22px, 2vw, 26px);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  line-height: 1;
+  text-shadow: 0 0 24px rgba(224, 177, 108, 0.20);
+  transition: font-size .3s var(--ease), text-shadow .3s var(--ease);
+}
+.site-header.is-scrolled .brand-name {
+  font-size: 20px;
+  text-shadow: none;
+}
+.brand-name--footer {
+  font-size: 22px;
+  text-shadow: none;
+}
+
 .site-nav ul {
-  display: flex; align-items: center; gap: 36px;
+  display: flex; align-items: center; gap: 32px;
 }
 .site-nav a {
   font-size: 14px;
@@ -235,32 +272,30 @@ section:not(.hero)::before,
 }
 .site-nav a::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 2px;
-  height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left;
+  height: 1px; background: var(--accent-warm); transform: scaleX(0); transform-origin: left;
   transition: transform .35s var(--ease);
+  box-shadow: 0 0 6px rgba(224, 177, 108, 0.5);
 }
 .site-nav a:hover { color: var(--ink); }
 .site-nav a:hover::after { transform: scaleX(1); }
 
 .header-cta {
   padding: 10px 18px;
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
   font-size: 14px;
 }
-.header-cta:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 /* mobile nav */
 .nav-toggle {
   display: none;
   background: transparent;
-  border: 1px solid rgba(10, 20, 40, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.20);
   border-radius: 999px;
   padding: 10px 12px;
   gap: 4px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-left: auto;
 }
 .nav-toggle span {
   width: 18px; height: 1.5px; background: var(--ink); display: block;
@@ -271,7 +306,7 @@ section:not(.hero)::before,
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
 .mobile-nav {
-  background: rgba(126, 151, 180, 0.97);
+  background: rgba(10, 14, 31, 0.96);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-top: 1px solid var(--line-on-dark);
@@ -286,7 +321,7 @@ section:not(.hero)::before,
 .mobile-nav .btn { margin-top: 14px; width: 100%; padding: 14px; }
 
 /* =========================================================
-   HERO — light blue with architectural grid
+   HERO — midnight city lights
    ========================================================= */
 .hero {
   position: relative;
@@ -301,39 +336,51 @@ section:not(.hero)::before,
 
 .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 
-/* Architectural grid — fine dark lines on the light blue, masked toward center */
+/* Illuminated grid — fine lines that brighten near the center */
 .grid-layer {
   position: absolute;
   inset: -10% -10%;
   background-image:
-    linear-gradient(to right,  rgba(10, 20, 40, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(10, 20, 40, 0.06) 1px, transparent 1px);
+    linear-gradient(to right,  rgba(255,255,255,0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.07) 1px, transparent 1px);
   background-size: 68px 68px;
-  mask-image: radial-gradient(ellipse 80% 65% at 50% 48%, #000 28%, transparent 78%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 48%, #000 28%, transparent 78%);
+  mask-image: radial-gradient(ellipse 78% 62% at 50% 46%, #000 24%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 78% 62% at 50% 46%, #000 24%, transparent 78%);
   will-change: transform;
   transform: translate3d(0,0,0);
 }
 
-/* Soft accent glow — deeper blue, gives subtle depth */
+/* Cool ambient glow — like a moonlit halo above the headline */
 .hero-glow {
   position: absolute;
-  width: 80vmax; height: 80vmax;
-  left: 50%; top: 55%;
+  width: 90vmax; height: 90vmax;
+  left: 50%; top: 38%;
   transform: translate(-50%, -50%);
   background:
-    radial-gradient(closest-side, rgba(95, 168, 224, 0.22), rgba(95, 168, 224, 0) 70%);
-  filter: blur(24px);
+    radial-gradient(closest-side, rgba(111, 180, 232, 0.18), rgba(111, 180, 232, 0) 70%);
+  filter: blur(28px);
   z-index: 0;
   opacity: 0.9;
 }
 
-/* Vignette fades to a slightly deeper blue at the bottom edge */
+/* Horizon — warm gold + lavender lift near the bottom, like distant city lights */
+.hero-horizon {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 360px;
+  background:
+    radial-gradient(ellipse 70% 100% at 50% 100%, rgba(224, 177, 108, 0.16), transparent 75%),
+    linear-gradient(to top, rgba(139, 107, 199, 0.10), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Soft top/bottom vignette to ground the section */
 .hero-vignette {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(78, 105, 134, 0) 0%, rgba(78, 105, 134, 0.30) 100%),
-    linear-gradient(to bottom, rgba(78, 105, 134, 0) 60%, rgba(78, 105, 134, 0.55) 100%);
+    radial-gradient(ellipse 60% 50% at 50% 0%,  rgba(10,14,31,0) 0%,  rgba(10,14,31,0.45) 100%),
+    linear-gradient(to bottom, rgba(10,14,31,0) 60%, rgba(10,14,31,0.85) 100%);
 }
 
 .hero-inner {
@@ -357,7 +404,7 @@ section:not(.hero)::before,
   letter-spacing: -0.025em;
   margin: 14px auto 26px;
   color: var(--ink);
-  max-width: 22ch;
+  max-width: 32ch;
   text-wrap: balance;
   position: relative;
 }
@@ -366,17 +413,17 @@ section:not(.hero)::before,
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(18px, 1.9vw, 26px);
-  line-height: 1.35;
+  line-height: 1.4;
   letter-spacing: -0.005em;
   color: var(--ink-soft);
-  max-width: 52ch;
-  margin: 0 auto 20px;
+  max-width: 60ch;
+  margin: 0 auto 22px;
 }
 
 .hero-sub {
-  max-width: 56ch;
+  max-width: 62ch;
   font-size: clamp(15px, 1.05vw, 17px);
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--muted);
   margin: 0 auto 44px;
 }
@@ -386,13 +433,6 @@ section:not(.hero)::before,
   justify-content: center;
   margin-bottom: 80px;
 }
-/* Hero CTAs use the navy default — explicit so it can't be confused */
-.hero .btn-primary {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
-}
-.hero .btn-primary:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
 .hero-meta {
   display: grid;
@@ -400,7 +440,7 @@ section:not(.hero)::before,
   gap: 24px;
   padding-top: 28px;
   border-top: 1px solid var(--line-on-dark);
-  max-width: 760px;
+  max-width: 820px;
   margin: 0 auto;
   text-align: center;
   width: 100%;
@@ -413,7 +453,7 @@ section:not(.hero)::before,
 .hero-meta dd {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 16px; font-weight: 500; color: var(--ink-soft);
+  font-size: 16px; font-weight: 500; color: var(--ink);
 }
 
 .hero-scroll {
@@ -425,7 +465,7 @@ section:not(.hero)::before,
   z-index: 1;
 }
 .hero-scroll-line {
-  width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(10, 20, 40, 0.55), transparent);
+  width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent);
   animation: heroScroll 2.4s var(--ease) infinite;
 }
 @keyframes heroScroll {
@@ -462,20 +502,22 @@ section:not(.hero)::before,
   padding-top: 14px;
 }
 
-.service-body { max-width: 720px; }
+.service-body { max-width: 740px; }
 .service h3 {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(28px, 3.4vw, 44px);
+  font-size: clamp(26px, 3vw, 38px);
   letter-spacing: -0.015em;
-  line-height: 1.05;
+  line-height: 1.1;
   margin: 0 0 16px;
+  color: var(--ink);
+  text-wrap: balance;
 }
 .service p {
-  font-size: clamp(16px, 1.15vw, 18px);
+  font-size: clamp(16px, 1.1vw, 18px);
   color: var(--ink-soft);
   margin: 0 0 22px;
-  max-width: 60ch;
+  max-width: 62ch;
 }
 .service-tags {
   display: flex; flex-wrap: wrap; gap: 8px;
@@ -486,8 +528,8 @@ section:not(.hero)::before,
   padding: 7px 14px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  color: var(--muted);
-  background: var(--surface-light);
+  color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 /* =========================================================
@@ -502,28 +544,27 @@ section:not(.hero)::before,
 .work-item:nth-child(2) { grid-column: span 7; }
 .work-item:nth-child(3) { grid-column: span 5; }
 
-.work-link {
-  display: block;
-  color: inherit;
-}
 .work-thumb {
   position: relative;
   aspect-ratio: 16 / 10;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  border: 1px solid var(--line-on-dark);
+  border: 1px solid var(--line);
   background: var(--surface-dark);
-  transition: transform .5s var(--ease);
+  transition: transform .5s var(--ease), box-shadow .4s var(--ease);
 }
-.work-link:hover .work-thumb { transform: translateY(-4px); }
+.work-item:hover .work-thumb {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+}
 
 .work-thumb::before {
   content: "";
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(to right,  rgba(10, 20, 40, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(10, 20, 40, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(to right,  rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 .work-thumb::after {
   content: "";
@@ -532,19 +573,19 @@ section:not(.hero)::before,
 .work-thumb-label {
   position: absolute; left: 22px; bottom: 18px;
   font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255,255,255,0.55);
   z-index: 1;
 }
 
-/* Per-discipline mood — each card carries the accent of its work type */
-.work-thumb--01 { background: linear-gradient(135deg, #D9E4F1 0%, #FFFFFF 70%); }
-.work-thumb--01::after { background: radial-gradient(circle at 70% 30%, rgba(107, 146, 214, 0.40), transparent 60%); }
+/* Each card carries a different "window light" mood */
+.work-thumb--01 { background: linear-gradient(135deg, #1F2D52 0%, #0A0E1F 70%); }
+.work-thumb--01::after { background: radial-gradient(circle at 72% 28%, rgba(111, 180, 232, 0.45), transparent 60%); }
 
-.work-thumb--02 { background: linear-gradient(135deg, #EFE3CB 0%, #FFFFFF 70%); }
-.work-thumb--02::after { background: radial-gradient(circle at 30% 30%, rgba(217, 166, 89, 0.40), transparent 60%); }
+.work-thumb--02 { background: linear-gradient(135deg, #3D2E1A 0%, #0A0E1F 70%); }
+.work-thumb--02::after { background: radial-gradient(circle at 28% 30%, rgba(224, 177, 108, 0.45), transparent 60%); }
 
-.work-thumb--03 { background: linear-gradient(135deg, #D4EBE2 0%, #FFFFFF 70%); }
-.work-thumb--03::after { background: radial-gradient(circle at 70% 70%, rgba(91, 186, 159, 0.40), transparent 60%); }
+.work-thumb--03 { background: linear-gradient(135deg, #2A1F45 0%, #0A0E1F 70%); }
+.work-thumb--03::after { background: radial-gradient(circle at 70% 70%, rgba(139, 107, 199, 0.40), transparent 60%); }
 
 .work-meta { padding: 20px 4px 0; }
 .work-tag {
@@ -562,8 +603,9 @@ section:not(.hero)::before,
 .work-desc {
   color: var(--ink-soft);
   font-size: 15px;
+  line-height: 1.6;
   margin: 0;
-  max-width: 50ch;
+  max-width: 52ch;
 }
 
 /* =========================================================
@@ -594,7 +636,7 @@ section:not(.hero)::before,
   font-weight: 400;
   font-size: 14px;
   letter-spacing: 0.16em;
-  color: var(--accent);
+  color: var(--accent-plum);
   padding-top: 4px;
 }
 .process-list h3 {
@@ -603,6 +645,7 @@ section:not(.hero)::before,
   font-size: clamp(22px, 2.2vw, 28px);
   letter-spacing: -0.01em;
   margin: 0 0 8px;
+  color: var(--ink);
 }
 .process-list p { color: var(--ink-soft); margin: 0; max-width: 56ch; }
 
@@ -617,9 +660,9 @@ section:not(.hero)::before,
 }
 
 .contact-direct {
-  margin-top: 40px;
+  margin-top: 36px;
   display: flex; flex-direction: column; gap: 20px;
-  border-top: 1px solid var(--line-on-dark);
+  border-top: 1px solid var(--line);
   padding-top: 28px;
 }
 .contact-direct li {
@@ -636,19 +679,19 @@ section:not(.hero)::before,
   font-family: var(--font-display);
   font-size: clamp(18px, 1.6vw, 22px);
   color: var(--ink);
-  border-bottom: 1px solid rgba(10, 20, 40, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   padding-bottom: 2px;
   transition: border-color .25s var(--ease), color .25s var(--ease);
 }
-.contact-direct a:hover { color: var(--accent); border-color: var(--accent); }
+.contact-direct a:hover { color: var(--accent-warm); border-color: var(--accent-warm); }
 
 .contact-form {
-  background: var(--surface-light);
+  background: var(--surface-dark);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: clamp(28px, 4vw, 44px);
   display: flex; flex-direction: column; gap: 18px;
-  box-shadow: 0 1px 0 rgba(10, 20, 40, 0.04), 0 12px 36px -16px rgba(10, 20, 40, 0.18);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.6);
 }
 .field { display: flex; flex-direction: column; gap: 8px; }
 .field label {
@@ -660,7 +703,7 @@ section:not(.hero)::before,
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(10, 20, 40, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.20);
   color: var(--ink);
   font: inherit;
   padding: 10px 0;
@@ -668,20 +711,20 @@ section:not(.hero)::before,
   border-radius: 0;
 }
 .field input::placeholder,
-.field textarea::placeholder { color: rgba(10, 20, 40, 0.35); }
+.field textarea::placeholder { color: rgba(192, 202, 221, 0.45); }
 .field input:focus,
 .field textarea:focus {
   outline: none;
-  border-bottom-color: var(--accent);
+  border-bottom-color: var(--accent-sky);
 }
 .field textarea { resize: vertical; min-height: 110px; }
 
 .form-status {
   margin: 0; min-height: 1.2em;
   font-size: 14px;
-  color: var(--accent);
+  color: var(--accent-sky);
 }
-.form-status.is-error { color: #B0463D; }
+.form-status.is-error { color: #E78A8A; }
 
 /* =========================================================
    FOOTER
@@ -711,7 +754,7 @@ section:not(.hero)::before,
   color: var(--ink-soft);
   transition: color .2s var(--ease);
 }
-.footer-nav a:hover, .footer-contact a:hover { color: var(--ink); }
+.footer-nav a:hover, .footer-contact a:hover { color: var(--accent-warm); }
 .footer-contact { display: flex; flex-direction: column; gap: 10px; }
 
 .footer-fine {
@@ -722,35 +765,6 @@ section:not(.hero)::before,
   font-size: 12px;
   color: var(--muted);
   letter-spacing: 0.04em;
-}
-
-/* Footer brand logo — dark wordmark on light footer (no invert filter) */
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--ink);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 20px;
-  letter-spacing: -0.01em;
-}
-.brand-logo {
-  height: 32px;
-  width: auto;
-  display: block;
-  opacity: 0;
-  transition: opacity .35s ease;
-  image-rendering: -webkit-optimize-contrast;
-}
-.brand-logo.is-ready { opacity: 1; }
-.brand-fallback {
-  display: none;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 22px;
-  letter-spacing: -0.01em;
-  color: var(--ink);
 }
 
 /* =========================================================
@@ -804,7 +818,6 @@ section:not(.hero)::before,
 /* Respect reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .hero-scroll-line { animation: none; }
-  .hero-glow { animation: none; }
   .grid-layer { transform: none !important; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
@@ -813,7 +826,6 @@ section:not(.hero)::before,
    Component styles
    ========================================================= */
 
-/* Trust list — small commitment bullets above the process steps */
 .trust-list {
   list-style: none;
   margin: 32px 0 0;
@@ -836,20 +848,9 @@ section:not(.hero)::before,
   top: 0.7em;
   width: 16px;
   height: 1px;
-  background: var(--accent);
+  background: var(--accent-sky);
 }
 
-/* Strong outcomes inside work descriptions — bold gold so stats pop */
-.work-desc strong {
-  display: block;
-  margin-top: 10px;
-  color: #5C4310;             /* deep gold for legibility on the steel-blue bg */
-  font-weight: 600;
-  font-family: var(--font-display);
-  letter-spacing: -0.005em;
-}
-
-/* Work section footer link */
 .work-footer {
   margin: clamp(40px, 5vw, 64px) 0 0;
   text-align: right;
@@ -859,8 +860,8 @@ section:not(.hero)::before,
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 500;
-  color: #5C4310;
-  border-bottom: 1px solid rgba(92, 67, 16, 0.55);
+  color: var(--accent-warm);
+  border-bottom: 1px solid rgba(224, 177, 108, 0.45);
   padding-bottom: 4px;
   transition: color .25s var(--ease), border-color .25s var(--ease);
 }
@@ -869,7 +870,6 @@ section:not(.hero)::before,
   border-bottom-color: var(--ink);
 }
 
-/* Contact-side trust bullets */
 .contact-bullets {
   list-style: none;
   margin: 28px 0 0;
@@ -892,13 +892,12 @@ section:not(.hero)::before,
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.55);
-  color: #144439;
+  background: rgba(91, 186, 159, 0.18);
+  color: var(--accent-mint);
   font-size: 12px;
   flex-shrink: 0;
 }
 
-/* Form fine-print under submit button */
 .form-fine {
   margin: 8px 0 0;
   font-size: 13px;
@@ -906,23 +905,15 @@ section:not(.hero)::before,
   line-height: 1.4;
 }
 
-/* Italic emphasis inside service-lede ("or", "and") — gold so it pops */
-.section-lede em {
-  font-style: italic;
-  color: #5C4310;
-  font-weight: 500;
-}
-.section--dark .section-lede em { color: #5C4310; }
-
 /* =========================================================
-   Color splashes — visible per-section accents
+   Color splashes — controlled "city light" accents per section
    ========================================================= */
 
-/* 1. Section kicker — colored leading bar, varies by section */
+/* Section kicker bars */
 .section-kicker::before {
   content: "";
   display: inline-block;
-  width: 20px;
+  width: 22px;
   height: 1.5px;
   background: var(--accent);
   flex-shrink: 0;
@@ -932,49 +923,21 @@ section:not(.hero)::before,
 .process  .section-kicker::before { background: var(--accent-plum); }
 .contact  .section-kicker::before { background: var(--accent-mint); }
 
-/* 2. Section divider gradients — accent per section transition */
+/* Section divider gradients colored per section */
 .services::before {
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(47, 134, 200, 0.30) 22%,
-    rgba(47, 134, 200, 0.85) 50%,
-    rgba(47, 134, 200, 0.30) 78%,
-    transparent 100%
-  );
+  background: linear-gradient(to right, transparent, rgba(111, 180, 232, 0.30) 22%, rgba(111, 180, 232, 0.80) 50%, rgba(111, 180, 232, 0.30) 78%, transparent);
 }
 .work::before {
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(156, 114, 32, 0.30) 22%,
-    rgba(156, 114, 32, 0.85) 50%,
-    rgba(156, 114, 32, 0.30) 78%,
-    transparent 100%
-  );
+  background: linear-gradient(to right, transparent, rgba(224, 177, 108, 0.30) 22%, rgba(224, 177, 108, 0.80) 50%, rgba(224, 177, 108, 0.30) 78%, transparent);
 }
 .process::before {
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(107, 71, 168, 0.30) 22%,
-    rgba(107, 71, 168, 0.85) 50%,
-    rgba(107, 71, 168, 0.30) 78%,
-    transparent 100%
-  );
+  background: linear-gradient(to right, transparent, rgba(139, 107, 199, 0.30) 22%, rgba(139, 107, 199, 0.80) 50%, rgba(139, 107, 199, 0.30) 78%, transparent);
 }
 .contact::before {
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(46, 135, 112, 0.30) 22%,
-    rgba(46, 135, 112, 0.85) 50%,
-    rgba(46, 135, 112, 0.30) 78%,
-    transparent 100%
-  );
+  background: linear-gradient(to right, transparent, rgba(91, 186, 159, 0.30) 22%, rgba(91, 186, 159, 0.80) 50%, rgba(91, 186, 159, 0.30) 78%, transparent);
 }
 
-/* 3. Service discipline markers — colored bar before each service number */
+/* Service discipline markers — colored bar before each service number */
 .service-num::before {
   content: "";
   display: inline-block;
@@ -988,11 +951,10 @@ section:not(.hero)::before,
 .service:nth-child(2) .service-num::before { background: var(--accent-warm); }
 .service:nth-child(3) .service-num::before { background: var(--accent-mint); }
 
-/* 4. Process step number indicators — plum dots before each number */
+/* Process step number bars */
 .process-num {
   position: relative;
   padding-left: 22px;
-  color: #3F2861;       /* deep plum for legibility on steel-blue bg */
 }
 .process-num::before {
   content: "";
@@ -1001,32 +963,26 @@ section:not(.hero)::before,
   top: 0.75em;
   width: 12px;
   height: 1.5px;
-  background: #6B47A8;  /* decorative bar stays brighter */
+  background: var(--accent-plum);
 }
 
-/* 5. Trust-list bullets — rotating colors */
-.trust-list li:nth-child(1)::before { background: #2F86C8; }
-.trust-list li:nth-child(2)::before { background: #9C7220; }
-.trust-list li:nth-child(3)::before { background: #2E8770; }
-.trust-list li:nth-child(4)::before { background: #6B47A8; }
+/* Trust-list bullet markers — rotate accents */
+.trust-list li:nth-child(1)::before { background: var(--accent-sky); }
+.trust-list li:nth-child(2)::before { background: var(--accent-warm); }
+.trust-list li:nth-child(3)::before { background: var(--accent-mint); }
+.trust-list li:nth-child(4)::before { background: var(--accent-plum); }
 
-/* 6. Hero meta dt labels — three different accent colors, deepened for steel-blue bg */
-.hero-meta > div:nth-child(1) dt { color: #144439; }   /* deep mint */
-.hero-meta > div:nth-child(2) dt { color: #5C4310; }   /* deep gold */
-.hero-meta > div:nth-child(3) dt { color: #0E456E; }   /* deep sky */
+/* Hero meta dt labels — three different accent colors */
+.hero-meta > div:nth-child(1) dt { color: var(--accent-mint); }
+.hero-meta > div:nth-child(2) dt { color: var(--accent-warm); }
+.hero-meta > div:nth-child(3) dt { color: var(--accent-sky); }
 
-/* 7. Form input focus state — sky-blue */
-.field input:focus,
-.field textarea:focus {
-  border-bottom-color: #2F86C8;
-}
-
-/* 8. Hero scroll indicator line — sky tint */
+/* Hero scroll indicator — sky tint */
 .hero-scroll-line {
-  background: linear-gradient(to bottom, rgba(47, 134, 200, 0.70), transparent);
+  background: linear-gradient(to bottom, rgba(111, 180, 232, 0.9), transparent);
 }
 
-/* 9. Footer tag — small gold accent bar */
+/* Footer tag — small gold accent bar */
 .footer-tag {
   position: relative;
   padding-left: 18px;
@@ -1039,16 +995,17 @@ section:not(.hero)::before,
   transform: translateY(-50%);
   width: 10px;
   height: 1.5px;
-  background: #9C7220;
+  background: var(--accent-warm);
 }
 
-/* 10. H1 accent — small sky/plum stripe above the hero headline */
+/* H1 accent stripe — gold→sky gradient hairline above the headline */
 .hero-heading::before {
   content: "";
   display: block;
-  width: 56px;
+  width: 64px;
   height: 2px;
-  background: linear-gradient(to right, #2F86C8, #6B47A8);
+  background: linear-gradient(to right, var(--accent-warm), var(--accent-sky));
   margin: 0 auto 22px;
-  opacity: 0.85;
+  opacity: 0.9;
+  box-shadow: 0 0 14px rgba(224, 177, 108, 0.45);
 }

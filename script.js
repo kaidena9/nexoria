@@ -163,12 +163,9 @@
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
   // ---------------------------------------------------------
-  // 7. Logo background cleaner — strip the JPEG checker pattern
-  //     mode="edge"   (default): flood-fill from image edges only.
-  //                              Preserves interior whites (icon's white N).
-  //     mode="global": remove every near-gray bright pixel anywhere.
-  //                    For wordmarks where letter counters are also gray.
-  //     Both modes then auto-crop the transparent padding.
+  // 7. Logo background cleaner — retained as a utility in case future
+  //    image-based brand marks return with the JPEG checker pattern.
+  //    Currently no <img data-clean-bg> elements use it.
   // ---------------------------------------------------------
   function cleanLogoBg(img) {
     const mode = (img.getAttribute("data-clean-bg") || "edge").toLowerCase();
