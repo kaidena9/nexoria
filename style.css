@@ -1315,6 +1315,55 @@ section:not(.hero)::before,
   background: linear-gradient(to right, transparent, rgba(232, 188, 124, 0.30) 22%, rgba(232, 188, 124, 0.80) 50%, rgba(232, 188, 124, 0.30) 78%, transparent);
 }
 
+/* Hero shooting-star traces — bright streaks that occasionally cross the grid */
+.hero-traces {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.trace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(180, 210, 255, 0) 12%,
+    rgba(180, 210, 255, 0.55) 75%,
+    rgba(245, 250, 255, 0.95) 100%
+  );
+  filter: drop-shadow(0 0 6px rgba(180, 210, 255, 0.55));
+  opacity: 0;
+  will-change: transform, opacity;
+}
+@keyframes shootA {
+  0%, 100% { opacity: 0; }
+  3%       { transform: translate(-15vw, 12vh) rotate(22deg); opacity: 1; }
+  15%      { transform: translate(115vw, 65vh) rotate(22deg); opacity: 0; }
+}
+@keyframes shootB {
+  0%, 100% { opacity: 0; }
+  3%       { transform: translate(-15vw, 40vh) rotate(10deg); opacity: 1; }
+  16%      { transform: translate(115vw, 60vh) rotate(10deg); opacity: 0; }
+}
+@keyframes shootC {
+  0%, 100% { opacity: 0; }
+  4%       { transform: translate(-10vw, 75vh) rotate(-15deg); opacity: 1; }
+  17%      { transform: translate(115vw, 55vh) rotate(-15deg); opacity: 0; }
+}
+.trace--1 { width: 240px; animation: shootA 12s linear infinite; animation-delay: 1.2s; }
+.trace--2 { width: 200px; animation: shootB 15s linear infinite; animation-delay: 5s; }
+.trace--3 { width: 220px; animation: shootC 14s linear infinite; animation-delay: 9.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .trace { animation: none !important; opacity: 0 !important; }
+}
+
 /* Hero scroll line — sky tint */
 .hero-scroll-line {
   background: linear-gradient(to bottom, rgba(130, 176, 238, 0.90), transparent);
