@@ -1974,32 +1974,39 @@ section:not(.hero)::before,
 .hero-image {
   position: absolute;
   inset: 0;
-  background-image: url("assets/hero-cinematic.jpg");
-  background-size: cover;
-  background-position: center right;
+  /* Stacked backgrounds: the photo is on top; if it 404s, the two
+     gradient layers below still render — so the design shows itself
+     even before assets/hero-cinematic.jpg is added. */
+  background-image:
+    url("assets/hero-cinematic.jpg"),
+    radial-gradient(ellipse 75% 95% at 88% 50%, rgba(80, 130, 200, 0.55), transparent 72%),
+    linear-gradient(125deg,
+      rgba(15, 22, 50, 0.40) 0%,
+      rgba(48, 78, 138, 0.85) 45%,
+      rgba(28, 50, 100, 0.75) 70%,
+      rgba(10, 14, 35, 0.50) 100%);
+  background-size: cover, 100% 100%, 100% 100%;
+  background-position: center right, center, center;
   background-repeat: no-repeat;
-  /* Subtle blue tint shows through when the image is missing */
-  background-color: rgba(20, 32, 60, 0.20);
-  opacity: 0.32;
-  filter: brightness(0.85) saturate(0.85) contrast(1.05);
-  /* Mobile: image is a soft full-width atmosphere, fading up so
-     the text area at the top stays clean */
+  opacity: 0.55;
+  filter: brightness(0.95) saturate(0.95) contrast(1.05);
+  /* Mobile: full-width atmosphere, fading up so the headline area
+     at the top of the hero stays clean. */
   mask-image: linear-gradient(
     to top,
     rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.55) 50%,
-    rgba(0, 0, 0, 0.18) 82%,
+    rgba(0, 0, 0, 0.65) 55%,
+    rgba(0, 0, 0, 0.20) 85%,
     rgba(0, 0, 0, 0) 100%
   );
   -webkit-mask-image: linear-gradient(
     to top,
     rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.55) 50%,
-    rgba(0, 0, 0, 0.18) 82%,
+    rgba(0, 0, 0, 0.65) 55%,
+    rgba(0, 0, 0, 0.20) 85%,
     rgba(0, 0, 0, 0) 100%
   );
   z-index: 0;
-  will-change: transform;
 }
 
 /* Desktop split — text anchors LEFT, image carries the RIGHT */
@@ -2007,21 +2014,21 @@ section:not(.hero)::before,
   .hero-image {
     inset: 0 0 0 auto;
     width: 62%;
-    opacity: 0.55;
+    opacity: 0.75;
     mask-image: linear-gradient(
       to left,
       rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.92) 22%,
-      rgba(0, 0, 0, 0.55) 55%,
-      rgba(0, 0, 0, 0.18) 80%,
+      rgba(0, 0, 0, 0.95) 25%,
+      rgba(0, 0, 0, 0.60) 55%,
+      rgba(0, 0, 0, 0.20) 80%,
       rgba(0, 0, 0, 0) 100%
     );
     -webkit-mask-image: linear-gradient(
       to left,
       rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.92) 22%,
-      rgba(0, 0, 0, 0.55) 55%,
-      rgba(0, 0, 0, 0.18) 80%,
+      rgba(0, 0, 0, 0.95) 25%,
+      rgba(0, 0, 0, 0.60) 55%,
+      rgba(0, 0, 0, 0.20) 80%,
       rgba(0, 0, 0, 0) 100%
     );
   }
