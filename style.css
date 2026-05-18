@@ -533,79 +533,206 @@ section:not(.hero)::before,
 }
 
 /* =========================================================
-   WORK
+   PROBLEMS — "Where growth breaks down"
    ========================================================= */
-.work-list {
+.problem-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: clamp(28px, 4vw, 56px) clamp(24px, 3vw, 40px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 2.5vw, 32px);
 }
-.work-item:nth-child(1) { grid-column: span 12; }
-.work-item:nth-child(2) { grid-column: span 7; }
-.work-item:nth-child(3) { grid-column: span 5; }
-
-.work-thumb {
+.problem {
   position: relative;
-  aspect-ratio: 16 / 10;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+  padding: clamp(28px, 3vw, 40px);
+  background: rgba(255, 255, 255, 0.025);
   border: 1px solid var(--line);
-  background: var(--surface-dark);
-  transition: transform .5s var(--ease), box-shadow .4s var(--ease);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform .4s var(--ease), border-color .25s var(--ease), background-color .25s var(--ease), box-shadow .35s var(--ease);
+  overflow: hidden;
 }
-.work-item:hover .work-thumb {
+.problem::before {
+  /* faint top highlight, gives each card a subtle "lit edge" */
+  content: "";
+  position: absolute;
+  top: 0; left: 18%; right: 18%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(224, 177, 108, 0.55), transparent);
+  opacity: 0.55;
+  transition: opacity .3s var(--ease);
+}
+.problem:hover {
   transform: translateY(-4px);
-  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+  border-color: rgba(224, 177, 108, 0.35);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 24px 60px -28px rgba(224, 177, 108, 0.20), 0 0 0 1px rgba(224, 177, 108, 0.10);
 }
+.problem:hover::before { opacity: 1; }
 
-.work-thumb::before {
+.problem-num {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: var(--accent-warm);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.problem-num::before {
   content: "";
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(to right,  rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 56px 56px;
+  display: inline-block;
+  width: 16px;
+  height: 1.5px;
+  background: var(--accent-warm);
 }
-.work-thumb::after {
-  content: "";
-  position: absolute; inset: 0;
-}
-.work-thumb-label {
-  position: absolute; left: 22px; bottom: 18px;
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(255,255,255,0.55);
-  z-index: 1;
-}
-
-/* Each card carries a different "window light" mood */
-.work-thumb--01 { background: linear-gradient(135deg, #1F2D52 0%, #0A0E1F 70%); }
-.work-thumb--01::after { background: radial-gradient(circle at 72% 28%, rgba(111, 180, 232, 0.45), transparent 60%); }
-
-.work-thumb--02 { background: linear-gradient(135deg, #3D2E1A 0%, #0A0E1F 70%); }
-.work-thumb--02::after { background: radial-gradient(circle at 28% 30%, rgba(224, 177, 108, 0.45), transparent 60%); }
-
-.work-thumb--03 { background: linear-gradient(135deg, #2A1F45 0%, #0A0E1F 70%); }
-.work-thumb--03::after { background: radial-gradient(circle at 70% 70%, rgba(139, 107, 199, 0.40), transparent 60%); }
-
-.work-meta { padding: 20px 4px 0; }
-.work-tag {
-  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--muted); margin: 0 0 8px;
-}
-.work-title {
+.problem-title {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(22px, 2.2vw, 28px);
+  font-size: clamp(20px, 1.6vw, 24px);
   letter-spacing: -0.01em;
-  margin: 0 0 8px;
+  line-height: 1.2;
+  margin: 0;
   color: var(--ink);
+  text-wrap: balance;
 }
-.work-desc {
+.problem-desc {
   color: var(--ink-soft);
   font-size: 15px;
   line-height: 1.6;
   margin: 0;
-  max-width: 52ch;
+  max-width: 42ch;
+}
+
+/* =========================================================
+   SPLASH / TRANSITION
+   ========================================================= */
+.splash {
+  position: relative;
+  padding: clamp(140px, 18vh, 220px) 0;
+  background: var(--bg-dark);
+  color: var(--ink);
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Suppress the shared section-divider hairline — splash flows visually */
+.splash::before { display: none; }
+.splash-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Faint architectural grid — wider scale than hero */
+.splash-grid {
+  position: absolute;
+  inset: -10% -10%;
+  background-image:
+    linear-gradient(to right,  rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: radial-gradient(ellipse 88% 78% at 50% 50%, #000 28%, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse 88% 78% at 50% 50%, #000 28%, transparent 82%);
+}
+
+/* Three drifting "city light" radials — gold bottom-left, sky upper-right, plum center */
+.splash-glow {
+  position: absolute;
+  filter: blur(20px);
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.splash-glow--warm {
+  width: 60vmax; height: 60vmax;
+  left: -10vmax; bottom: -25vmax;
+  background: radial-gradient(closest-side, rgba(224, 177, 108, 0.30), rgba(224, 177, 108, 0) 70%);
+  animation: splashGlowA 14s ease-in-out infinite alternate;
+}
+.splash-glow--cool {
+  width: 55vmax; height: 55vmax;
+  right: -12vmax; top: -20vmax;
+  background: radial-gradient(closest-side, rgba(111, 180, 232, 0.28), rgba(111, 180, 232, 0) 70%);
+  animation: splashGlowB 16s ease-in-out infinite alternate;
+}
+.splash-glow--plum {
+  width: 70vmax; height: 70vmax;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(closest-side, rgba(139, 107, 199, 0.16), rgba(139, 107, 199, 0) 70%);
+  animation: splashGlowC 20s ease-in-out infinite alternate;
+}
+@keyframes splashGlowA {
+  0%   { opacity: 0.7;  transform: translate(0, 0); }
+  100% { opacity: 1;    transform: translate(6%, -3%); }
+}
+@keyframes splashGlowB {
+  0%   { opacity: 0.75; transform: translate(0, 0); }
+  100% { opacity: 1;    transform: translate(-5%, 4%); }
+}
+@keyframes splashGlowC {
+  0%   { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+.splash-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.splash-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(40px, 6.2vw, 84px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin: 0 0 28px;
+  text-wrap: balance;
+  /* Subtle vertical text gradient — top reads bright, bottom warms toward gold */
+  background: linear-gradient(180deg, #F4F6FB 60%, rgba(224, 177, 108, 0.85) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 32px rgba(111, 180, 232, 0.15);
+}
+.splash-para {
+  font-size: clamp(17px, 1.4vw, 21px);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  margin: 0 0 36px;
+}
+.splash-tagline {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.splash-tagline span {
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.splash-tagline::before,
+.splash-tagline::after {
+  content: "";
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(224, 177, 108, 0.85), transparent);
 }
 
 /* =========================================================
@@ -791,8 +918,8 @@ section:not(.hero)::before,
   .service { grid-template-columns: 1fr; gap: 12px; }
   .service-num { padding-top: 0; }
 
-  .work-list { gap: 36px; }
-  .work-item:nth-child(n) { grid-column: span 12; }
+  .problem-grid { grid-template-columns: 1fr; gap: 18px; }
+  .splash { padding: clamp(96px, 14vh, 160px) 0; }
 
   .process-grid { grid-template-columns: 1fr; gap: 40px; }
   .process-head { position: static; }
@@ -820,6 +947,7 @@ section:not(.hero)::before,
   .hero-scroll-line { animation: none; }
   .grid-layer { transform: none !important; }
   .reveal { opacity: 1; transform: none; transition: none; }
+  .splash-glow { animation: none !important; }
 }
 
 /* =========================================================
@@ -851,10 +979,6 @@ section:not(.hero)::before,
   background: var(--accent-sky);
 }
 
-.work-footer {
-  margin: clamp(40px, 5vw, 64px) 0 0;
-  text-align: right;
-}
 .link-arrow {
   display: inline-block;
   font-family: var(--font-display);
@@ -919,7 +1043,7 @@ section:not(.hero)::before,
   flex-shrink: 0;
 }
 .services .section-kicker::before { background: var(--accent-sky); }
-.work     .section-kicker::before { background: var(--accent-warm); }
+.problems .section-kicker::before { background: var(--accent-warm); }
 .process  .section-kicker::before { background: var(--accent-plum); }
 .contact  .section-kicker::before { background: var(--accent-mint); }
 
@@ -927,7 +1051,7 @@ section:not(.hero)::before,
 .services::before {
   background: linear-gradient(to right, transparent, rgba(111, 180, 232, 0.30) 22%, rgba(111, 180, 232, 0.80) 50%, rgba(111, 180, 232, 0.30) 78%, transparent);
 }
-.work::before {
+.problems::before {
   background: linear-gradient(to right, transparent, rgba(224, 177, 108, 0.30) 22%, rgba(224, 177, 108, 0.80) 50%, rgba(224, 177, 108, 0.30) 78%, transparent);
 }
 .process::before {

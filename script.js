@@ -95,7 +95,7 @@
   // 4. Reveal-on-scroll — light, IntersectionObserver-based
   // ---------------------------------------------------------
   const revealTargets = document.querySelectorAll(
-    ".section-head, .service, .work-item, .process-list li, .contact-form, .contact-direct"
+    ".section-head, .service, .problem, .splash-heading, .splash-para, .splash-tagline, .process-list li, .contact-form, .contact-direct"
   );
   revealTargets.forEach((el) => el.classList.add("reveal"));
 
