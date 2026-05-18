@@ -1584,6 +1584,41 @@ section:not(.hero)::before,
 .hero--sub .hero-scroll  { display: none; }
 .hero--sub .hero-heading::before { width: 48px; margin-bottom: 18px; }
 
+/* Sub-page hero readability — quiet the background image and add a
+   directional dark scrim behind the text so the headline + tagline are
+   clearly the focal point. Scoped to .hero--sub only so the homepage
+   hero is unaffected. */
+.hero--sub .grid-layer {
+  opacity: 0.28;
+  filter: brightness(0.72) saturate(0.62) contrast(0.95) blur(0.5px);
+}
+.hero--sub .hero-aurora { opacity: 0.55; }
+.hero--sub .hero-glow   { opacity: 0.65; }
+.hero--sub .hero-vignette {
+  background:
+    /* Center scrim — the dark zone behind the text block */
+    radial-gradient(ellipse 70% 60% at 50% 48%,
+      rgba(7, 9, 26, 0.72) 0%,
+      rgba(7, 9, 26, 0.40) 45%,
+      rgba(7, 9, 26, 0) 88%),
+    /* Soft top fade to ground the header bar */
+    radial-gradient(ellipse 80% 55% at 50% 0%,
+      rgba(7, 9, 26, 0.55) 0%,
+      rgba(7, 9, 26, 0) 75%),
+    /* Strong bottom fade to ground the section transition */
+    linear-gradient(to bottom,
+      rgba(7, 9, 26, 0) 45%,
+      rgba(7, 9, 26, 0.92) 100%);
+}
+/* Very subtle text-shadow as a last layer of polish — only applied
+   after the overlay work above does the heavy lifting. */
+.hero--sub .eyebrow,
+.hero--sub .hero-heading,
+.hero--sub .hero-tagline,
+.hero--sub .hero-sub {
+  text-shadow: 0 1px 24px rgba(7, 9, 26, 0.55);
+}
+
 /* "Learn more →" link at the bottom of a service card on the homepage */
 .service-link {
   display: inline-flex;
