@@ -1,6 +1,6 @@
 /* =========================================================
    Nexoria — interactions
-   - Hero particle network (slow drifting dots + connections)
+   - Hero grid parallax (subtle scroll-driven shift)
    - Sticky header state on scroll
    - Mobile nav toggle
    - Reveal-on-scroll
@@ -12,219 +12,42 @@
   "use strict";
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isNarrow = window.matchMedia("(max-width: 760px)").matches;
 
   // ---------------------------------------------------------
-  // 1. Hero particle network — calm, slow, connecting dots
+  // 1. Hero grid parallax — single rAF loop, subtle vertical drift
   // ---------------------------------------------------------
   const heroEl = document.querySelector(".hero");
-  const canvas = document.getElementById("heroNetwork");
+  const gridLayers = Array.from(document.querySelectorAll(".grid-layer"));
 
-  if (heroEl && canvas && canvas.getContext) {
-    const ctx = canvas.getContext("2d");
-    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  let parallaxTicking = false;
 
-    let w = 0, h = 0;
-    let particles = [];
-    let pulses = [];
-    let lastPulseAt = 0;
-    let running = false;
-    let inView = true;
-    let rafId = 0;
-
-    // Tune for "calm, not distracting":
-    //  - slow drift velocity
-    //  - moderate density (auto-scales with viewport)
-    //  - lines fade out with distance
-    const SPEED = 0.18;        // px/frame — slow
-    const DOT_RADIUS = 2.2;
-    const DOT_COLOR = "rgba(235, 244, 255, 0.98)";
-    const DOT_HALO  = "rgba(150, 190, 245, 0.35)";
-    const LINE_BASE = "190, 215, 245"; // soft blue-white
-
-    // Traveling pulses — bright dots that ride along a connection
-    const PULSE_INTERVAL = 650;   // ms between spawn attempts
-    const MAX_PULSES = 9;
-    const PULSE_MIN_MS = 1800;
-    const PULSE_MAX_MS = 3000;
-
-    function resize() {
-      const rect = canvas.getBoundingClientRect();
-      w = rect.width;
-      h = rect.height;
-      canvas.width  = Math.round(w * DPR);
-      canvas.height = Math.round(h * DPR);
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-
-      // Density: roughly one dot per ~22k CSS px², clamped
-      const target = Math.round((w * h) / 22000);
-      const count = Math.max(30, Math.min(95, target));
-
-      // Tune connection distance to viewport — shorter on small screens
-      window.__nx_connectDist = Math.max(110, Math.min(165, Math.sqrt(w * h) / 9));
-
-      seed(count);
+  function applyParallax() {
+    if (!heroEl) { parallaxTicking = false; return; }
+    const rect = heroEl.getBoundingClientRect();
+    if (rect.bottom < 0 || rect.top > window.innerHeight) {
+      parallaxTicking = false;
+      return;
     }
-
-    function seed(count) {
-      particles = [];
-      pulses = [];
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * SPEED,
-          vy: (Math.random() - 0.5) * SPEED,
-        });
-      }
+    const scrolled = Math.max(0, -rect.top);
+    for (const layer of gridLayers) {
+      const speed = parseFloat(layer.dataset.parallax || "0.1");
+      const y = -(scrolled * speed);
+      layer.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`;
     }
+    parallaxTicking = false;
+  }
 
-    function maybeSpawnPulse(now, connectSq) {
-      if (pulses.length >= MAX_PULSES) return;
-      if (now - lastPulseAt < PULSE_INTERVAL) return;
-      // Try a few random pairs; pick the first one that's currently connected.
-      for (let attempt = 0; attempt < 14; attempt++) {
-        const i = (Math.random() * particles.length) | 0;
-        let j = (Math.random() * particles.length) | 0;
-        if (i === j) continue;
-        const a = particles[i], b = particles[j];
-        const dx = a.x - b.x, dy = a.y - b.y;
-        if (dx * dx + dy * dy < connectSq) {
-          pulses.push({
-            i, j,
-            start: now,
-            dur: PULSE_MIN_MS + Math.random() * (PULSE_MAX_MS - PULSE_MIN_MS),
-          });
-          lastPulseAt = now;
-          return;
-        }
-      }
-    }
+  function onScrollParallax() {
+    if (parallaxTicking || reduceMotion || isNarrow) return;
+    parallaxTicking = true;
+    requestAnimationFrame(applyParallax);
+  }
 
-    function frame(now) {
-      const connectDist = window.__nx_connectDist;
-      const connectSq = connectDist * connectDist;
-
-      ctx.clearRect(0, 0, w, h);
-
-      // Move + bounce
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) { p.x = 0; p.vx = -p.vx; }
-        else if (p.x > w) { p.x = w; p.vx = -p.vx; }
-        if (p.y < 0) { p.y = 0; p.vy = -p.vy; }
-        else if (p.y > h) { p.y = h; p.vy = -p.vy; }
-      }
-
-      // Connections — distance-aware alpha, drawn under dots
-      ctx.lineWidth = 1;
-      for (let i = 0; i < particles.length; i++) {
-        const a = particles[i];
-        for (let j = i + 1; j < particles.length; j++) {
-          const b = particles[j];
-          const dx = a.x - b.x;
-          const dy = a.y - b.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < connectSq) {
-            const t = 1 - Math.sqrt(d2) / connectDist;
-            ctx.strokeStyle = `rgba(${LINE_BASE}, ${(t * 0.55).toFixed(3)})`;
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Dots with soft halo for brighter presence
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        ctx.fillStyle = DOT_HALO;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, DOT_RADIUS + 3.2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = DOT_COLOR;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, DOT_RADIUS, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      // Traveling pulses — drawn last so they sit brightest
-      maybeSpawnPulse(now, connectSq);
-      for (let p = pulses.length - 1; p >= 0; p--) {
-        const pulse = pulses[p];
-        const t = (now - pulse.start) / pulse.dur;
-        if (t >= 1) { pulses.splice(p, 1); continue; }
-        const a = particles[pulse.i];
-        const b = particles[pulse.j];
-        if (!a || !b) { pulses.splice(p, 1); continue; }
-        const x = a.x + (b.x - a.x) * t;
-        const y = a.y + (b.y - a.y) * t;
-        const fade = Math.sin(t * Math.PI); // 0 → 1 → 0
-        // halo
-        ctx.fillStyle = `rgba(150, 195, 255, ${(fade * 0.45).toFixed(3)})`;
-        ctx.beginPath();
-        ctx.arc(x, y, 6, 0, Math.PI * 2);
-        ctx.fill();
-        // core
-        ctx.fillStyle = `rgba(255, 255, 255, ${(fade * 0.95).toFixed(3)})`;
-        ctx.beginPath();
-        ctx.arc(x, y, 2.4, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function loop(now) {
-      if (!running) return;
-      frame(now);
-      rafId = requestAnimationFrame(loop);
-    }
-
-    function start() {
-      if (running || !inView) return;
-      running = true;
-      rafId = requestAnimationFrame(loop);
-    }
-    function stop() {
-      running = false;
-      if (rafId) cancelAnimationFrame(rafId);
-    }
-
-    // Init
-    resize();
-
-    if (reduceMotion) {
-      // Render a single calm static frame — no motion, no pulses.
-      frame(performance.now());
-    } else {
-      start();
-
-      // Pause when hero leaves the viewport (perf)
-      if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver((entries) => {
-          inView = entries[0].isIntersecting;
-          if (inView) start(); else stop();
-        }, { threshold: 0 });
-        io.observe(heroEl);
-      }
-
-      // Pause when tab hidden
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) stop();
-        else start();
-      });
-    }
-
-    // Resize handling — debounced
-    let resizeT;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeT);
-      resizeT = setTimeout(() => {
-        resize();
-        if (reduceMotion) frame(performance.now());
-      }, 120);
-    });
+  if (heroEl && gridLayers.length && !reduceMotion && !isNarrow) {
+    requestAnimationFrame(applyParallax);
+    window.addEventListener("scroll", onScrollParallax, { passive: true });
+    window.addEventListener("resize", onScrollParallax, { passive: true });
   }
 
   // ---------------------------------------------------------
@@ -341,11 +164,14 @@
 
   // ---------------------------------------------------------
   // 7. Logo background cleaner — strip the JPEG checker pattern
-  //     Global pass: any near-gray bright pixel becomes transparent
-  //     (clears the bg AND the gray inside letter counters), then
-  //     auto-crops the transparent padding so the logo fills its box.
+  //     mode="edge"   (default): flood-fill from image edges only.
+  //                              Preserves interior whites (icon's white N).
+  //     mode="global": remove every near-gray bright pixel anywhere.
+  //                    For wordmarks where letter counters are also gray.
+  //     Both modes then auto-crop the transparent padding.
   // ---------------------------------------------------------
   function cleanLogoBg(img) {
+    const mode = (img.getAttribute("data-clean-bg") || "edge").toLowerCase();
     const reveal = () => img.classList.add("is-ready");
 
     const finalize = () => {
@@ -367,9 +193,7 @@
         return;
       }
 
-      // Edge-flood-fill: only gray pixels reachable from the image border
-      // become transparent. Interior whites (the N's strokes) stay opaque.
-      const eligible = (idx) => {
+      const isCheckerPixel = (idx) => {
         const i = idx * 4;
         const r = data[i], g = data[i + 1], b = data[i + 2];
         const avg = (r + g + b) / 3;
@@ -379,28 +203,36 @@
             && Math.abs(b - avg) < 24;
       };
 
-      const visited = new Uint8Array(W * H);
-      const stack = [];
-      const seed = (sx, sy) => {
-        if (sx < 0 || sy < 0 || sx >= W || sy >= H) return;
-        const idx = sy * W + sx;
-        if (visited[idx] || !eligible(idx)) return;
-        visited[idx] = 1;
-        stack.push(idx);
-      };
-      for (let x = 0; x < W; x += 2) { seed(x, 0); seed(x, H - 1); }
-      for (let y = 0; y < H; y += 2) { seed(0, y); seed(W - 1, y); }
+      if (mode === "global") {
+        // Wordmark: nuke every near-gray pixel anywhere (kills letter counters).
+        for (let idx = 0; idx < W * H; idx++) {
+          if (isCheckerPixel(idx)) data[idx * 4 + 3] = 0;
+        }
+      } else {
+        // Icon: edge-flood-fill only. Preserves interior whites.
+        const visited = new Uint8Array(W * H);
+        const stack = [];
+        const seed = (sx, sy) => {
+          if (sx < 0 || sy < 0 || sx >= W || sy >= H) return;
+          const idx = sy * W + sx;
+          if (visited[idx] || !isCheckerPixel(idx)) return;
+          visited[idx] = 1;
+          stack.push(idx);
+        };
+        for (let x = 0; x < W; x += 2) { seed(x, 0); seed(x, H - 1); }
+        for (let y = 0; y < H; y += 2) { seed(0, y); seed(W - 1, y); }
 
-      while (stack.length) {
-        const idx = stack.pop();
-        data[idx * 4 + 3] = 0;
-        const x = idx % W;
-        const y = (idx / W) | 0;
-        let n;
-        if (x > 0)     { n = idx - 1; if (!visited[n] && eligible(n)) { visited[n] = 1; stack.push(n); } }
-        if (x < W - 1) { n = idx + 1; if (!visited[n] && eligible(n)) { visited[n] = 1; stack.push(n); } }
-        if (y > 0)     { n = idx - W; if (!visited[n] && eligible(n)) { visited[n] = 1; stack.push(n); } }
-        if (y < H - 1) { n = idx + W; if (!visited[n] && eligible(n)) { visited[n] = 1; stack.push(n); } }
+        while (stack.length) {
+          const idx = stack.pop();
+          data[idx * 4 + 3] = 0;
+          const x = idx % W;
+          const y = (idx / W) | 0;
+          let n;
+          if (x > 0)     { n = idx - 1; if (!visited[n] && isCheckerPixel(n)) { visited[n] = 1; stack.push(n); } }
+          if (x < W - 1) { n = idx + 1; if (!visited[n] && isCheckerPixel(n)) { visited[n] = 1; stack.push(n); } }
+          if (y > 0)     { n = idx - W; if (!visited[n] && isCheckerPixel(n)) { visited[n] = 1; stack.push(n); } }
+          if (y < H - 1) { n = idx + W; if (!visited[n] && isCheckerPixel(n)) { visited[n] = 1; stack.push(n); } }
+        }
       }
 
       // Find bounding box of remaining (non-transparent) pixels

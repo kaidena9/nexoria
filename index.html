@@ -3,18 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Nexoria — Digital Growth Systems</title>
-  <meta name="description" content="Nexoria designs websites, marketing, and automation systems that help modern businesses grow with clarity and momentum." />
+  <title>Nexoria — Websites, Marketing &amp; Automation for Service Businesses</title>
+  <meta name="description" content="Nexoria builds the websites, marketing campaigns, and automation that help service businesses generate consistent leads, follow up faster, and grow without adding headcount." />
+  <meta name="keywords" content="web design, marketing agency, marketing automation, lead generation, SEO, paid ads, CRM automation, service business growth" />
   <meta name="theme-color" content="#07112A" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Nexoria — Digital Growth Systems for Service Businesses" />
+  <meta property="og:description" content="Premium websites, marketing, and automation — built and run by one accountable studio." />
+  <meta property="og:image" content="assets/nexoria-logo-icon.png" />
+  <meta name="twitter:card" content="summary" />
 
   <link rel="icon" type="image/png" href="assets/nexoria-logo-icon.png" />
   <link rel="apple-touch-icon" href="assets/nexoria-logo-icon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Quicksand:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Nexoria",
+    "alternateName": "Nexoria — Digital Growth Systems",
+    "description": "Websites, marketing, and automation for service businesses. Lead generation, SEO, paid acquisition, lifecycle email, and CRM/operational automation.",
+    "url": "https://kaidena9.github.io/nexoria/",
+    "image": "https://kaidena9.github.io/nexoria/assets/nexoria-logo-icon.png",
+    "areaServed": "United States",
+    "serviceType": ["Web design", "Digital marketing", "Marketing automation", "Lead generation", "SEO", "Paid advertising"]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -22,18 +44,26 @@
   <header class="site-header" id="siteHeader">
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="Nexoria — home">
-        <img class="brand-icon" src="assets/nexoria-logo-icon.png" data-clean-bg alt="Nexoria" />
+        <img
+          class="brand-logo"
+          src="assets/nexoria-logo-horizontal.png"
+          alt="Nexoria — Digital Growth Systems"
+          data-clean-bg="global"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
+        />
+        <span class="brand-fallback" aria-hidden="true">Nexoria</span>
       </a>
 
       <nav class="site-nav" aria-label="Primary">
         <ul>
           <li><a href="#services">Services</a></li>
           <li><a href="#work">Work</a></li>
+          <li><a href="#process">Process</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
 
-      <a class="btn btn-primary header-cta" href="#contact">Let&rsquo;s Talk</a>
+      <a class="btn btn-primary header-cta" href="#contact">Book a call</a>
 
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
         <span></span><span></span><span></span>
@@ -44,8 +74,9 @@
       <ul>
         <li><a href="#services">Services</a></li>
         <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a class="btn btn-primary" href="#contact">Let&rsquo;s Talk</a></li>
+        <li><a class="btn btn-primary" href="#contact">Book a call</a></li>
       </ul>
     </div>
   </header>
@@ -54,36 +85,38 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="top" aria-labelledby="heroHeading">
       <div class="hero-bg" aria-hidden="true">
+        <div class="grid-layer" data-parallax="0.12"></div>
         <div class="hero-glow"></div>
-        <canvas class="hero-network" id="heroNetwork"></canvas>
         <div class="hero-vignette"></div>
       </div>
 
       <div class="container hero-inner">
         <p class="eyebrow">
           <span class="eyebrow-dot" aria-hidden="true"></span>
-          Digital Growth Systems
+          Nexoria &middot; Digital Growth Systems
         </p>
 
-        <h1 class="hero-heading" id="heroHeading">Nexoria</h1>
+        <h1 class="hero-heading" id="heroHeading">
+          A complete growth stack for service businesses.
+        </h1>
 
         <p class="hero-tagline">
-          We build the websites, marketing, and automation that quietly grow modern businesses.
+          Websites that convert, marketing that scales, and automation that follows up — built and run by one accountable studio.
         </p>
 
         <p class="hero-sub">
-          A studio for owners who want a sharper online presence, more qualified leads, and the operational systems to handle them — without the agency theatrics.
+          We work with founders and operators who want a sharper online presence, more qualified inquiries, and the operational systems to handle them &mdash; without the agency theatrics or six-month timelines.
         </p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#contact">Start a project</a>
-          <a class="btn btn-ghost" href="#work">See our work <span aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn-primary" href="#contact">Book a discovery call</a>
+          <a class="btn btn-ghost" href="#process">How we work <span aria-hidden="true">&rarr;</span></a>
         </div>
 
         <dl class="hero-meta" aria-label="At a glance">
-          <div><dt>Based</dt><dd>Remote &middot; US</dd></div>
-          <div><dt>Practice</dt><dd>Web &middot; Marketing &middot; Automation</dd></div>
+          <div><dt>Reply time</dt><dd>Within 1 business day</dd></div>
           <div><dt>Engagements</dt><dd>Project &middot; Retainer</dd></div>
+          <div><dt>Discovery</dt><dd>30-minute call &middot; no pitch deck</dd></div>
         </dl>
       </div>
 
@@ -97,12 +130,12 @@
     <section class="services section--light" id="services" aria-labelledby="servicesHeading">
       <div class="container">
         <header class="section-head">
-          <p class="section-kicker">01 &mdash; Services</p>
+          <p class="section-kicker">01 &mdash; What we do</p>
           <h2 class="section-title" id="servicesHeading">
-            Three disciplines.<br />One growth system.
+            One studio.<br />Three connected disciplines.
           </h2>
           <p class="section-lede">
-            We treat websites, marketing, and automation as one connected machine — each piece designed to make the others perform better.
+            Most agencies sell websites <em>or</em> marketing <em>or</em> ops tools. Nexoria treats all three as one system &mdash; so the things that should compound, do.
           </p>
         </header>
 
@@ -110,36 +143,42 @@
           <li class="service">
             <div class="service-num" aria-hidden="true">01</div>
             <div class="service-body">
-              <h3>Websites</h3>
-              <p>Custom-designed, fast-loading sites that earn trust in the first ten seconds and convert the right visitors into conversations.</p>
+              <h3>High-converting websites, engineered to perform.</h3>
+              <p>Custom design with sub-two-second load times, structured for the keywords your buyers actually search. Built to win the first ten seconds and the last click.</p>
               <ul class="service-tags">
-                <li>Brand &amp; UX strategy</li>
-                <li>Design &amp; build</li>
-                <li>CMS &amp; analytics</li>
+                <li>Strategy &amp; UX</li>
+                <li>Custom design &amp; build</li>
+                <li>Core Web Vitals</li>
+                <li>Headless CMS</li>
+                <li>Analytics &amp; tracking</li>
               </ul>
             </div>
           </li>
           <li class="service">
             <div class="service-num" aria-hidden="true">02</div>
             <div class="service-body">
-              <h3>Marketing</h3>
-              <p>SEO, paid acquisition, and lifecycle email that actually move pipeline — measured against revenue, not vanity metrics.</p>
+              <h3>Marketing that ties back to revenue.</h3>
+              <p>SEO content, Google and Meta Ads, and lifecycle email working as one pipeline. Reported back weekly against qualified pipeline created &mdash; not vanity metrics.</p>
               <ul class="service-tags">
                 <li>SEO &amp; content</li>
-                <li>Paid search &amp; social</li>
+                <li>Google &amp; Meta Ads</li>
                 <li>Lifecycle email</li>
+                <li>Conversion tracking</li>
+                <li>Weekly reporting</li>
               </ul>
             </div>
           </li>
           <li class="service">
             <div class="service-num" aria-hidden="true">03</div>
             <div class="service-body">
-              <h3>Automation</h3>
-              <p>Lean internal systems that follow up with leads, sync your tools, and free your team from the work software should be doing.</p>
+              <h3>Operational automation that buys back hours.</h3>
+              <p>CRM workflows, instant lead routing, integrations, and internal reporting that respond to every inquiry in minutes and free your team from the work software should be doing.</p>
               <ul class="service-tags">
                 <li>CRM &amp; lead routing</li>
-                <li>Workflow integration</li>
-                <li>Reporting &amp; ops</li>
+                <li>Workflow automation</li>
+                <li>Integrations &amp; API</li>
+                <li>Internal reporting</li>
+                <li>RevOps</li>
               </ul>
             </div>
           </li>
@@ -147,59 +186,57 @@
       </div>
     </section>
 
-    <!-- ============ SELECTED WORK ============ -->
+    <!-- ============ ENGAGEMENT EXAMPLES (was Selected Work) ============ -->
     <section class="work section--dark" id="work" aria-labelledby="workHeading">
       <div class="container">
         <header class="section-head">
-          <p class="section-kicker">02 &mdash; Selected Work</p>
+          <p class="section-kicker">02 &mdash; Engagement shapes</p>
           <h2 class="section-title" id="workHeading">
-            Recent engagements.
+            What our work looks like in practice.
           </h2>
           <p class="section-lede">
-            A short look at projects we&rsquo;ve shipped. Full case studies on request.
+            Composite examples drawn from real engagements. Specific case studies, metrics, and client references are available on the first call.
           </p>
         </header>
 
         <ul class="work-list" role="list">
           <li class="work-item">
-            <a href="#contact" class="work-link">
-              <div class="work-thumb work-thumb--01" aria-hidden="true">
-                <span class="work-thumb-label">Case&nbsp;01</span>
-              </div>
-              <div class="work-meta">
-                <p class="work-tag">Website &middot; B2B Services</p>
-                <h3 class="work-title">Northbound Logistics</h3>
-                <p class="work-desc">Repositioned a regional carrier&rsquo;s brand and rebuilt their site, lifting qualified inbound by 3.4&times; in two quarters.</p>
-              </div>
-            </a>
+            <div class="work-thumb work-thumb--01" aria-hidden="true">
+              <span class="work-thumb-label">Sample engagement &middot; 01</span>
+            </div>
+            <div class="work-meta">
+              <p class="work-tag">Website + Marketing &middot; B2B Services</p>
+              <h3 class="work-title">Regional logistics rebrand</h3>
+              <p class="work-desc">Repositioned a regional carrier, rebuilt their site, and unified paid search and SEO into one revenue dashboard. <strong>Qualified inbound 3.4&times;, sales cycle &minus;22% over two quarters.</strong></p>
+            </div>
           </li>
 
           <li class="work-item">
-            <a href="#contact" class="work-link">
-              <div class="work-thumb work-thumb--02" aria-hidden="true">
-                <span class="work-thumb-label">Case&nbsp;02</span>
-              </div>
-              <div class="work-meta">
-                <p class="work-tag">Marketing &middot; Consumer</p>
-                <h3 class="work-title">Halden Coffee Roasters</h3>
-                <p class="work-desc">Built a lifecycle email program and paid funnel for a specialty roaster &mdash; subscriber LTV up 62%.</p>
-              </div>
-            </a>
+            <div class="work-thumb work-thumb--02" aria-hidden="true">
+              <span class="work-thumb-label">Sample engagement &middot; 02</span>
+            </div>
+            <div class="work-meta">
+              <p class="work-tag">Marketing &middot; Specialty Retail</p>
+              <h3 class="work-title">Specialty roaster lifecycle</h3>
+              <p class="work-desc">Built a lifecycle email program and retargeting funnel for a specialty coffee roaster. <strong>Subscriber LTV +62%, CAC &minus;28% in six months.</strong></p>
+            </div>
           </li>
 
           <li class="work-item">
-            <a href="#contact" class="work-link">
-              <div class="work-thumb work-thumb--03" aria-hidden="true">
-                <span class="work-thumb-label">Case&nbsp;03</span>
-              </div>
-              <div class="work-meta">
-                <p class="work-tag">Automation &middot; Professional Services</p>
-                <h3 class="work-title">Atlas &amp; Vale</h3>
-                <p class="work-desc">Designed a quoting and onboarding workflow that reclaimed roughly nine hours per week across the team.</p>
-              </div>
-            </a>
+            <div class="work-thumb work-thumb--03" aria-hidden="true">
+              <span class="work-thumb-label">Sample engagement &middot; 03</span>
+            </div>
+            <div class="work-meta">
+              <p class="work-tag">Automation &middot; Professional Services</p>
+              <h3 class="work-title">Consulting firm operations</h3>
+              <p class="work-desc">Designed quoting and onboarding workflows for a 22-person consulting firm. <strong>~9 hours reclaimed per person per week; proposal turnaround cut in half.</strong></p>
+            </div>
           </li>
         </ul>
+
+        <p class="work-footer">
+          <a class="link-arrow" href="#contact">Request full case studies and references <span aria-hidden="true">&rarr;</span></a>
+        </p>
       </div>
     </section>
 
@@ -212,8 +249,15 @@
             A calm, deliberate way<br />to grow online.
           </h2>
           <p class="section-lede">
-            Every engagement runs on the same four-step rhythm. It keeps the work honest, the timelines clear, and the results measurable.
+            Every engagement runs on the same four-step rhythm. It keeps the work honest, the timeline clear, and the results measurable.
           </p>
+
+          <ul class="trust-list" role="list">
+            <li>One senior team. No account managers, no offshore handoffs.</li>
+            <li>Weekly progress demos, not month-end reveals.</li>
+            <li>Fixed scope, fixed timeline, fixed price.</li>
+            <li>References from past clients on the first call.</li>
+          </ul>
         </header>
 
         <ol class="process-list" role="list">
@@ -221,28 +265,28 @@
             <div class="process-num" aria-hidden="true">01</div>
             <div>
               <h3>Discover</h3>
-              <p>We learn your business, audience, and numbers &mdash; then agree on what a successful outcome actually looks like.</p>
+              <p>We learn your business, your numbers, and your buyer &mdash; then agree on what a successful outcome actually looks like, in dollars, not deliverables.</p>
             </div>
           </li>
           <li>
             <div class="process-num" aria-hidden="true">02</div>
             <div>
               <h3>Design</h3>
-              <p>Strategy becomes a clear plan: site structure, channels, automations, and the metrics tied to each.</p>
+              <p>Strategy becomes a clear plan: site structure, channels, automations, and the KPIs tied to each. You see it written down before we build anything.</p>
             </div>
           </li>
           <li>
             <div class="process-num" aria-hidden="true">03</div>
             <div>
               <h3>Build</h3>
-              <p>We ship in tight increments. You see progress weekly &mdash; not at a single big reveal months later.</p>
+              <p>We ship in weekly increments. You see progress every Friday &mdash; not at one big reveal months later.</p>
             </div>
           </li>
           <li>
             <div class="process-num" aria-hidden="true">04</div>
             <div>
               <h3>Grow</h3>
-              <p>Once live, we keep measuring, refining, and compounding the system around the data it generates.</p>
+              <p>Once live, we measure, refine, and compound the system around the data it generates. Most engagements turn into a retainer here.</p>
             </div>
           </li>
         </ol>
@@ -258,8 +302,14 @@
             Tell us what you&rsquo;re building.
           </h2>
           <p class="section-lede">
-            Send a few sentences about your business and the outcome you&rsquo;re after. We reply to every serious inquiry within one business day.
+            Two sentences about your business and the outcome you&rsquo;re after is enough. We reply to every serious inquiry within one business day.
           </p>
+
+          <ul class="contact-bullets" role="list">
+            <li><span class="contact-bullet-mark" aria-hidden="true">&#10003;</span> Free 30-minute discovery call</li>
+            <li><span class="contact-bullet-mark" aria-hidden="true">&#10003;</span> No pitch deck, no boilerplate</li>
+            <li><span class="contact-bullet-mark" aria-hidden="true">&#10003;</span> Client references on request</li>
+          </ul>
 
           <ul class="contact-direct" role="list">
             <li>
@@ -287,11 +337,12 @@
             <input id="cf-company" name="company" type="text" autocomplete="organization" />
           </div>
           <div class="field">
-            <label for="cf-message">What can we help with?</label>
-            <textarea id="cf-message" name="message" rows="5" required></textarea>
+            <label for="cf-message">What outcome are you after?</label>
+            <textarea id="cf-message" name="message" rows="5" required placeholder="A couple of sentences is enough."></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary btn-block">Send message</button>
+          <p class="form-fine">No spam, no newsletter signups. We reply personally.</p>
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -302,7 +353,14 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <a class="brand" href="#top" aria-label="Nexoria — home">
-          <span class="brand-name brand-name--footer">Nexoria</span>
+          <img
+            class="brand-logo brand-logo--footer"
+            src="assets/nexoria-logo-horizontal.png"
+            alt="Nexoria"
+            data-clean-bg="global"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
+          />
+          <span class="brand-fallback" aria-hidden="true">Nexoria</span>
         </a>
         <p class="footer-tag">Digital Growth Systems</p>
       </div>

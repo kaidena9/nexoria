@@ -238,32 +238,30 @@ section:not(.hero)::before,
   top: 18px;
   left: 24px;
 }
-/* Icon mark in the header — small, crisp, no filter (looks good as-is on navy) */
-.brand-icon {
-  height: clamp(38px, 4vw, 48px);
+/* Full horizontal logo — dark wordmark turned white silhouette by filter */
+.brand-logo {
+  height: clamp(40px, 4.4vw, 56px);
   width: auto;
   display: block;
+  filter: brightness(0) invert(1);
   opacity: 0;
   transition: opacity .35s ease, height .35s var(--ease);
   image-rendering: -webkit-optimize-contrast;
 }
-.brand-icon.is-ready { opacity: 1; }
-.site-header.is-scrolled .brand-icon { height: 32px; }
-
-/* Text wordmark — sleek, geometric, circular letterforms (used in footer) */
-.brand-name {
-  font-family: "Quicksand", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  font-weight: 600;
-  font-size: clamp(28px, 3vw, 38px);
-  letter-spacing: -0.005em;
-  line-height: 1;
-  color: #fff;
-  display: block;
-  transition: font-size .35s var(--ease);
+.brand-logo.is-ready { opacity: 1; }
+.brand-logo--footer {
+  height: 32px;
 }
-.brand-name--footer {
-  font-size: 22px;
+.site-header.is-scrolled .brand-logo:not(.brand-logo--footer) { height: 30px; }
+
+/* Text fallback — shown only if the logo image fails to load */
+.brand-fallback {
+  display: none;
+  font-family: var(--font-display);
   font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: #fff;
 }
 
 .site-nav ul {
@@ -345,13 +343,18 @@ section:not(.hero)::before,
 
 .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 
-/* Particle network canvas */
-.hero-network {
+/* Architectural grid — fine lines, masked to the center, with a slow scroll parallax */
+.grid-layer {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
+  inset: -10% -10%;
+  background-image:
+    linear-gradient(to right,  rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 68px 68px;
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 48%, #000 28%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 48%, #000 28%, transparent 78%);
+  will-change: transform;
+  transform: translate3d(0,0,0);
 }
 
 /* Deep blue glow — gives depth, no neon */
@@ -389,14 +392,14 @@ section:not(.hero)::before,
 
 .hero-heading {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(72px, 16vw, 220px);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-  margin: 10px auto 28px;
+  font-weight: 500;
+  font-size: clamp(40px, 5.6vw, 76px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  margin: 14px auto 26px;
   color: #FFFFFF;
-  max-width: 100%;
+  max-width: 22ch;
+  text-wrap: balance;
 }
 
 .hero-tagline {
@@ -799,5 +802,112 @@ section:not(.hero)::before,
 /* Respect reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   .hero-scroll-line { animation: none; }
+  .hero-glow { animation: none; }
+  .grid-layer { transform: none !important; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* =========================================================
+   New component styles
+   ========================================================= */
+
+/* Trust list — small commitment bullets above the process steps */
+.trust-list {
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.trust-list li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+.trust-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 16px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* Strong outcomes inside work descriptions */
+.work-desc strong {
+  display: block;
+  margin-top: 10px;
+  color: #fff;
+  font-weight: 500;
+  font-family: var(--font-display);
+  letter-spacing: -0.005em;
+}
+
+/* Work section footer link */
+.work-footer {
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  text-align: right;
+}
+.link-arrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent-hi);
+  border-bottom: 1px solid rgba(107, 146, 214, 0.4);
+  padding-bottom: 4px;
+  transition: color .25s var(--ease), border-color .25s var(--ease);
+}
+.link-arrow:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+/* Contact-side trust bullets */
+.contact-bullets {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.contact-bullets li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: rgba(236, 240, 250, 0.85);
+}
+.contact-bullet-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(107, 146, 214, 0.18);
+  color: var(--accent-hi);
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* Form fine-print under submit button */
+.form-fine {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted-on-dark);
+  line-height: 1.4;
+}
+
+/* Italic emphasis inside service-lede ("or", "and") */
+.section-lede em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 500;
+}
+.section--dark .section-lede em { color: var(--accent-hi); }
