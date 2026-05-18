@@ -4,20 +4,20 @@
    ========================================================= */
 
 :root {
-  /* Palette — soft blues throughout, navy reserved for CTAs */
-  --bg-dark:        #BBCFE3;   /* main medium-light blue (formerly "dark" sections) */
-  --bg-dark-2:      #A8C0D8;   /* slightly deeper blue for accents */
+  /* Palette — mid-tone steel blues, navy reserved for CTAs */
+  --bg-dark:        #7E97B4;   /* darker steel blue (formerly "dark" sections) */
+  --bg-dark-2:      #6B86A6;   /* slightly deeper for accents */
   --surface-dark:   #FFFFFF;   /* card / form panel */
-  --bg-light:       #E5EFF8;   /* alternating lighter blue */
+  --bg-light:       #9DB5CF;   /* alternating slightly lighter steel blue */
   --surface-light:  #FFFFFF;
-  --footer-bg:      #98B3CD;   /* slightly deeper grounding for footer */
+  --footer-bg:      #4E6986;   /* deeper grounding for footer */
 
   --ink:            #0A1428;   /* dark navy text + CTA fill */
-  --ink-soft:       #2A3A55;
-  --muted:          #4A5A75;
-  --muted-on-dark:  #4A5A75;   /* same as muted — both contexts now light bg */
-  --line:           rgba(10, 20, 40, 0.10);
-  --line-on-dark:   rgba(10, 20, 40, 0.14);
+  --ink-soft:       #1A2438;
+  --muted:          #1F2E48;   /* deeper muted for legibility on the mid bg */
+  --muted-on-dark:  #1F2E48;
+  --line:           rgba(10, 20, 40, 0.14);
+  --line-on-dark:   rgba(10, 20, 40, 0.20);
 
   --accent:         #2D5BA8;
   --accent-hi:      #6B92D6;
@@ -207,7 +207,7 @@ section:not(.hero)::before,
   border-bottom: 1px solid transparent;
 }
 .site-header.is-scrolled {
-  background: rgba(229, 239, 248, 0.82);    /* translucent light blue */
+  background: rgba(126, 151, 180, 0.85);    /* translucent steel blue */
   -webkit-backdrop-filter: saturate(160%) blur(14px);
   backdrop-filter: saturate(160%) blur(14px);
   border-bottom-color: var(--line-on-dark);
@@ -271,7 +271,7 @@ section:not(.hero)::before,
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
 .mobile-nav {
-  background: rgba(229, 239, 248, 0.96);
+  background: rgba(126, 151, 180, 0.97);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-top: 1px solid var(--line-on-dark);
@@ -332,8 +332,8 @@ section:not(.hero)::before,
 .hero-vignette {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(168, 192, 216, 0) 0%, rgba(168, 192, 216, 0.30) 100%),
-    linear-gradient(to bottom, rgba(168, 192, 216, 0) 60%, rgba(168, 192, 216, 0.50) 100%);
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(78, 105, 134, 0) 0%, rgba(78, 105, 134, 0.30) 100%),
+    linear-gradient(to bottom, rgba(78, 105, 134, 0) 60%, rgba(78, 105, 134, 0.55) 100%);
 }
 
 .hero-inner {
@@ -843,7 +843,7 @@ section:not(.hero)::before,
 .work-desc strong {
   display: block;
   margin-top: 10px;
-  color: #9C7220;             /* deeper gold for legibility on light bg */
+  color: #5C4310;             /* deep gold for legibility on the steel-blue bg */
   font-weight: 600;
   font-family: var(--font-display);
   letter-spacing: -0.005em;
@@ -859,8 +859,8 @@ section:not(.hero)::before,
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 500;
-  color: #9C7220;
-  border-bottom: 1px solid rgba(156, 114, 32, 0.4);
+  color: #5C4310;
+  border-bottom: 1px solid rgba(92, 67, 16, 0.55);
   padding-bottom: 4px;
   transition: color .25s var(--ease), border-color .25s var(--ease);
 }
@@ -892,8 +892,8 @@ section:not(.hero)::before,
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: rgba(91, 186, 159, 0.22);
-  color: #2E8770;
+  background: rgba(255, 255, 255, 0.55);
+  color: #144439;
   font-size: 12px;
   flex-shrink: 0;
 }
@@ -909,10 +909,10 @@ section:not(.hero)::before,
 /* Italic emphasis inside service-lede ("or", "and") — gold so it pops */
 .section-lede em {
   font-style: italic;
-  color: #9C7220;
+  color: #5C4310;
   font-weight: 500;
 }
-.section--dark .section-lede em { color: #9C7220; }
+.section--dark .section-lede em { color: #5C4310; }
 
 /* =========================================================
    Color splashes — visible per-section accents
@@ -992,7 +992,7 @@ section:not(.hero)::before,
 .process-num {
   position: relative;
   padding-left: 22px;
-  color: #6B47A8;       /* deeper plum for contrast on light bg */
+  color: #3F2861;       /* deep plum for legibility on steel-blue bg */
 }
 .process-num::before {
   content: "";
@@ -1001,7 +1001,7 @@ section:not(.hero)::before,
   top: 0.75em;
   width: 12px;
   height: 1.5px;
-  background: #6B47A8;
+  background: #6B47A8;  /* decorative bar stays brighter */
 }
 
 /* 5. Trust-list bullets — rotating colors */
@@ -1010,10 +1010,10 @@ section:not(.hero)::before,
 .trust-list li:nth-child(3)::before { background: #2E8770; }
 .trust-list li:nth-child(4)::before { background: #6B47A8; }
 
-/* 6. Hero meta dt labels — three different accent colors */
-.hero-meta > div:nth-child(1) dt { color: #2E8770; }
-.hero-meta > div:nth-child(2) dt { color: #9C7220; }
-.hero-meta > div:nth-child(3) dt { color: #2F86C8; }
+/* 6. Hero meta dt labels — three different accent colors, deepened for steel-blue bg */
+.hero-meta > div:nth-child(1) dt { color: #144439; }   /* deep mint */
+.hero-meta > div:nth-child(2) dt { color: #5C4310; }   /* deep gold */
+.hero-meta > div:nth-child(3) dt { color: #0E456E; }   /* deep sky */
 
 /* 7. Form input focus state — sky-blue */
 .field input:focus,
