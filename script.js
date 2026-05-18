@@ -64,6 +64,37 @@
   }
 
   // ---------------------------------------------------------
+  // 2b. Services dropdown — click/touch + keyboard toggle
+  // ---------------------------------------------------------
+  const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
+  dropdownTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      const isOpen = trigger.getAttribute("aria-expanded") === "true";
+      // Close other triggers first
+      dropdownTriggers.forEach((t) => {
+        if (t !== trigger) t.setAttribute("aria-expanded", "false");
+      });
+      trigger.setAttribute("aria-expanded", String(!isOpen));
+    });
+    trigger.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        trigger.setAttribute("aria-expanded", "false");
+        trigger.blur();
+      }
+    });
+  });
+  // Close any open dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    dropdownTriggers.forEach((trigger) => {
+      const parent = trigger.closest(".has-dropdown");
+      if (parent && !parent.contains(e.target)) {
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+
+  // ---------------------------------------------------------
   // 3. Mobile nav toggle
   // ---------------------------------------------------------
   const navToggle = document.getElementById("navToggle");

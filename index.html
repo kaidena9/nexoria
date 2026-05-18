@@ -48,7 +48,17 @@
 
       <nav class="site-nav" aria-label="Primary">
         <ul>
-          <li><a href="#services">Services</a></li>
+          <li class="has-dropdown">
+            <button class="dropdown-trigger" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="servicesDropdown">Services</button>
+            <div class="dropdown" id="servicesDropdown" role="menu">
+              <a href="websites.html" role="menuitem">Websites</a>
+              <a href="marketing.html" role="menuitem">Marketing</a>
+              <a href="automation.html" role="menuitem">Automation</a>
+              <div class="dropdown-divider" role="separator"></div>
+              <a href="service-businesses.html" role="menuitem">For service businesses</a>
+            </div>
+          </li>
+          <li><a href="insights.html">Insights</a></li>
           <li><a href="#process">Process</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -63,7 +73,16 @@
 
     <div class="mobile-nav" id="mobileNav" hidden>
       <ul>
-        <li><a href="#services">Services</a></li>
+        <li>
+          <span class="mobile-section-label">Services</span>
+          <ul class="mobile-sub">
+            <li><a href="websites.html">Websites</a></li>
+            <li><a href="marketing.html">Marketing</a></li>
+            <li><a href="automation.html">Automation</a></li>
+            <li><a href="service-businesses.html">For service businesses</a></li>
+          </ul>
+        </li>
+        <li><a href="insights.html">Insights</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a class="btn btn-primary" href="#contact">Book a call</a></li>
@@ -149,6 +168,7 @@
                 <li>Analytics and tracking</li>
                 <li>Ongoing site updates</li>
               </ul>
+              <a class="service-link" href="websites.html">More on our website work <span aria-hidden="true">&rarr;</span></a>
             </div>
           </li>
           <li class="service">
@@ -163,6 +183,7 @@
                 <li>Conversion tracking</li>
                 <li>Performance reporting</li>
               </ul>
+              <a class="service-link" href="marketing.html">More on our marketing work <span aria-hidden="true">&rarr;</span></a>
             </div>
           </li>
           <li class="service">
@@ -177,6 +198,7 @@
                 <li>Internal notifications</li>
                 <li>Reporting and operational visibility</li>
               </ul>
+              <a class="service-link" href="automation.html">More on our automation work <span aria-hidden="true">&rarr;</span></a>
             </div>
           </li>
         </ol>
@@ -347,21 +369,34 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <a class="brand" href="#top" aria-label="Nexoria — home">
+        <a class="brand" href="index.html" aria-label="Nexoria — home">
           <span class="brand-name brand-name--footer">Nexoria</span>
         </a>
         <p class="footer-tag">Digital Growth Systems</p>
       </div>
 
-      <nav class="footer-nav" aria-label="Footer">
+      <nav class="footer-nav" aria-label="Footer — Services">
+        <p class="footer-nav-label">Services</p>
         <ul>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#process">Process</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="websites.html">Websites</a></li>
+          <li><a href="marketing.html">Marketing</a></li>
+          <li><a href="automation.html">Automation</a></li>
+          <li><a href="service-businesses.html">For service businesses</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer-nav" aria-label="Footer — Company">
+        <p class="footer-nav-label">Company</p>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="insights.html">Insights</a></li>
+          <li><a href="index.html#process">Process</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
         </ul>
       </nav>
 
       <div class="footer-contact">
+        <p class="footer-nav-label">Get in touch</p>
         <a href="mailto:hello@nexoria.studio">hello@nexoria.studio</a>
         <a href="tel:+16306447147">630&middot;644&middot;7147</a>
       </div>
