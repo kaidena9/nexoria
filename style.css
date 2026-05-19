@@ -562,6 +562,16 @@ section:not(.hero)::before,
   justify-content: center;
 }
 
+/* Hero eyebrow — translucent pill that hugs only this line of text */
+.hero-inner > .eyebrow {
+  padding: 8px 16px;
+  background: rgba(8, 11, 28, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(10px) saturate(115%);
+  backdrop-filter: blur(10px) saturate(115%);
+}
+
 .hero-heading {
   font-family: var(--font-display);
   font-weight: 500;
